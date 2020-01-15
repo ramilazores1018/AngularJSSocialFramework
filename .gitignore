@@ -1,0 +1,10 @@
+## IGNORE NODE MODULES FOLDER
+node_modules
+judge
+
+
+## IGNORE BUILD FOLDERS
+Dist
+dist
+Archived
+SPService

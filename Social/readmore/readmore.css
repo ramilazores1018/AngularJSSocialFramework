@@ -1,0 +1,31 @@
+.wc-readmore {
+  /* text-align: center;
+  font-size: 17px; 
+  margin-left: 5px;
+    padding: 10px 5px;*/
+  color: #09c;
+  cursor: pointer;
+  float: left;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+
+.wc-readmore.show{
+    height:75px;
+    top: -25px;
+    background-image: linear-gradient(to bottom, transparent, white 25%);
+}
+
+.wc-readmore.show a{
+    color:inherit;
+    top: 50%;
+    left: 47%;
+    position: absolute;
+}
+
+.wc-readmore a{
+    color:inherit;
+    position: relative;
+    left: 0;
+}

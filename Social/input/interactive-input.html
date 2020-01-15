@@ -1,0 +1,396 @@
+<div ng-show="false" ng-cloak>
+    <wc-loader loading-text="{{ inputvm.loadingMessage }}"></wc-loader>
+  </div>
+  
+  <wc-toaster show-toaster="{{inputvm.showToaster}}" input-type="wc-toaster"></wc-toaster>
+  <!-- <wc-Dialog></wc-Dialog> -->
+  
+  <!-- =========================================================
+  * POST INPUT FORM DIRECTIVE
+  ========================================================== -->
+  
+  <div id="" ng-show="inputvm.showInputForm" ng-cloak>
+  
+    <form name="postInput" class="wc-pi-wrapper col-xs-12">
+  
+      <!-- ----------------------
+          * POST INPUT PLACEHOLDER 
+          ------------------------>
+      <div ng-show="inputvm.showForm.placeholder" class="wc-pi-form-placeholder">
+  
+        <div class="wc-pi-placeholder-ctn" ng-click="inputvm.openInitialForm()" style="margin-bottom: 15px;">
+  
+          <!-- USER IMAGE -->
+          <div>
+            <img class="wc-pi-placeholder-img" ng-src="{{ inputvm.userPhoto }}">
+          </div>
+  
+          <!-- INPUT BOX PLACEHOLDER -->
+          <div class="wc-pi-placeholder-input">
+            <a class="wc-pi-placeholder-btn btn btn-primary" style="top: -10px; margin-top: 0px; float: right;">Post</a>
+            <span class="remove" style="left: 10px; top: 5px; text-align: center; padding-top: 50px; position: relative;">
+              Click here to add a post.
+            </span>
+          </div>
+  
+        </div>
+      </div>
+  
+      <!-- ----------------------
+          * POST INPUT FORMS
+          ------------------------>
+      <div ng-show="inputvm.showForm.micropost" class="wc-pi-form-ctn clearfix" style="margin-bottom:15px;">
+  
+        <!-- * TABS TO SELECT POST TYPE -->
+        <div class="wc-pi-charmBar-alt" ng-show="!inputvm.showForm.placeholder">
+          <span id="postFormTab" class="wc-pi-charm hand" ng-class="inputvm.postClass" ng-click="inputvm.showMicroPostForm()"
+            ng-show="inputvm.showTab.post">
+            Post
+          </span>
+          <span id="eventTab" class="wc-pi-charm hand" ng-class="inputvm.eventClass" ng-click="inputvm.showEventForm()"
+            ng-show="inputvm.showTab.event">
+            Event
+          </span>
+          <span id="eventTab" class="wc-pi-charm hand" ng-class="inputvm.eventClass" ng-click="inputvm.showEventForm()"
+            ng-show="inputvm.showTab.milestone">
+            Milestone
+          </span>
+          <span id="taskFormTab" class="wc-pi-charm hand" ng-class="inputvm.taskClass" ng-click="inputvm.showTaskForm()"
+            ng-show="inputvm.showTab.task">Task</span>
+        </div>
+  
+  
+        <!-- * TITLE FIELD -->
+        <div class="form-group">
+          <div ng-hide="inputvm.showSharedTitle">
+            <!-- <input autofocus ng-if="!(inputvm.postType=='Task' || inputvm.postType=='Event')" id="input-title" type="text"
+              ng-model="inputvm.title" class="form-control titleText" autocomplete="off" placeholder="Title (Optional)"> -->
+            <!-- <input autofocus ng-if="(inputvm.postType=='Task' || inputvm.postType=='Event')" id="input-title" type="text"
+              ng-model="inputvm.title" class="form-control titleText" autocomplete="off" placeholder="Title"> -->
+            <input autofocus id="input-title" type="text"
+              ng-model="inputvm.title" class="form-control titleText" autocomplete="off" placeholder="Title">
+          </div>
+          <span ng-show="inputvm.showSharedTitle" id="" class="titleText">Shared Post</span>
+        </div>
+  
+        <!-- *HANDLE ERRORS -->
+        <div id="inputAlert" ng-hide="inputvm.isValidFields" class="alert alert-danger alert-dismissible  show"
+          role="alert">
+          <ul>
+            <li ng-hide="inputvm.isValid.title">Title is a required field.</li>
+            <li ng-hide="inputvm.isValid.publishedDate">Published Date is a required field.</li>
+            <li ng-hide="inputvm.isValid.eventLocation">Event Locatioin is a required field.</li>
+            <li ng-hide="inputvm.isValid.eventStartDate">Event Start Date is a required field.</li>
+            <li ng-hide="inputvm.isValid.eventEndDate">Event End Date is a required field.</li>
+            <li ng-hide="inputvm.isValid.digest">Post field is required.</li>
+            <li ng-hide="inputvm.isValid.assignedTo">Please select someone to assign this task to.</li>
+            <li ng-hide="inputvm.isValid.contentOwner">Content Owner is a required field.</li>
+            <li ng-hide="inputvm.isValid.clientMatter">A Client Matter selection is required on this form. </li>
+          </ul>
+        </div>
+  
+        <!-- * POST DIGEST FIELD  -->
+        <div class="form-group">
+  
+          <div class="input-digest" ng-class="{'alert-danger': inputvm.isValid.digest == false}" >
+            <input id="input-digest" type="text" ng-model="inputvm.digest" class="form-control">
+          </div>
+        </div>
+  
+        <!-- * [HIDDEN] - POST IMAGE INPUT FORM -->
+        <div class="form-group" style="display:none">
+  
+          <div class="input-group" ng-click="inputvm.openFileUploader('#input-imageUpload')"
+            ng-show="inputvm.showUploadImageControl">
+            <input type="text" class="form-control" placeholder="Upload Image">
+            <span class="input-group-btn">
+              <a class="btn btn-primary">Upload</a>
+            </span>
+          </div>
+  
+          <input type="file" id="input-imageUpload" class="hide form-control" />
+          <!-- <input type="file" id="input-inlineFilesUpload" class="hide form-control" onchange="angular.element(this).scope().handleFileSelectToTinyMCE(this)" /> -->
+        </div>
+  
+        <!-- ONLY FOR MATTERS-->
+        <div class="form-group" ng-show="inputvm.isMatters && inputvm.mattersTab == 'landing'">
+          <label>Client - Matter</label>
+          <!-- <input id="input-clientmatter" class="form-control" type="text" ng-model="inputvm.clientmatters" ng-required="inputvm.isMatters && inputvm.mattersTab == 'landing' && inputvm.editMode == false"/> -->
+          <input id="input-clientmatter" class="form-control" type="text" ng-model="inputvm.clientmatters"/>
+        </div>
+  
+        <!-- * CATEGORY FIELD -->
+        <div class="form-group">
+          <label>Category</label>
+          <!-- <input id="input-categories" type="text" ng-model="inputvm.categories" class="form-control" placeholder="Add Categories" /> -->
+          <input id="input-categories" type="text" ng-model="inputvm.categories" class="form-control"/>
+        </div>
+  
+        <div class="form-group" ng-show="inputvm.isMatters" style="margin: 9px 0;">
+          <input type="checkbox" ng-model="inputvm.isKeyPost" />
+          <label style="font-size: 14px; padding-top: 9px;">Key Post</label>
+        </div>
+  
+        <!-- ----------------------
+              * EVENT FORM
+              ------------------------>
+        <div ng-show="inputvm.showForm.event" class="clearfix">
+  
+          <!-- * EVENT LOCATION -->
+          <div class="col-xs-12 col-sm-6" style="padding-left: 0;">
+  
+            <div class="form-group">
+              <div ng-class="">
+                <label>Event Location</label>
+                <input id="input-eventLocation" type="text" ng-model="inputvm.eventLocation"
+                  class="form-control {'alert-danger': inputvm.isValid.eventLocation == false}" placeholder="">
+              </div>
+            </div>
+  
+            <div class="form-group" ng-show="inputvm.isMatters">
+              <div class="">
+                <label>Days in advance to remind Core Team</label>
+                <input type="text" class="form-control" style="width: 100px;"
+                  ng-model="inputvm.matterCoreTeamReminderDays" />
+              </div>
+            </div>
+  
+  
+          </div>
+  
+          <!-- * START AND END DATE -->
+          <div class="col-xs-12 col-sm-6" style="padding-right: 2px;" ng-hide="inputvm.isMatters">
+            <div class="form-group">
+              <label>Start Date</label>
+              <div class="input-group" ng-click="inputvm.showCalStartDate()">
+                <input id="input-startDate" type="text" class="form-control wc-dates" placeholder="Start Date">
+                <span class="input-group-btn hand">
+                  <a class="btn btn-primary" id="input-startDate-btn">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>End Date</label>
+              <div class="input-group" ng-click="inputvm.showCalEndDate()">
+                <input id="input-endDate" type="text" class="form-control wc-dates" placeholder="End Date">
+                <span class="input-group-btn hand">
+                  <a class="btn btn-primary" id="input-endDate-btn">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-xs-12 col-sm-6" style="padding-right: 2px;" ng-hide="!inputvm.isMatters">
+            <div class="form-group">
+              <label>Due Date</label>
+              <div class="input-group" ng-click="inputvm.showCalEndDate()">
+                <input id="input-endDate" type="text" class="form-control wc-dates" placeholder="Due Date">
+                <span class="input-group-btn hand">
+                  <a class="btn btn-primary" id="input-endDate-btn">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+        <!-- ----------------------
+              * TASK FORM
+              ------------------------>
+        <div ng-show="inputvm.showForm.task" class="clearfix">
+  
+          <div class="row">
+            <!-- * ASSIGN TO FIELD -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <div ng-class="">
+                  <label>Assign To</label>
+                  <input id="input-assignTo" type="text" ng-model="inputvm.assignedTo" placeholder=""
+                    class="form-control {'alert-danger': inputvm.isValid.assignedTo == false}">
+                </div>
+              </div>
+  
+              <!-- * DUE DATE FIELD - FLATPICKR CONTROL -->
+              <div class="col-md-6" style="padding-left:0;">
+                <div class="form-group">
+                  <div ng-class="">
+                    <label>Due Date</label>
+                    <div class="input-group {'alert-danger': inputvm.isValid.taskDueDate == false}" id="input-DueDate"
+                      ng-click="inputvm.showCalDueDate()">
+                      <input id="input-task-dueDate" type="text" class="form-control wc-dates" placeholder="Due Date" >
+                      <span class="input-group-btn hand">
+                        <a class="btn btn-primary" id="input-task-dueDate-btn">
+                          <i class="fa fa-calendar"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-xs-12 col-sm-6" style="padding-right: 2px;" >
+                <div class="form-group">
+                  <label>Completed Date</label>
+                  <div class="input-group" ng-click="inputvm.showCompletedDate()">
+                    <input id="input-completedDate" type="text" class="form-control wc-dates" placeholder="Completed Date">
+                    <span class="input-group-btn hand">
+                      <a class="btn btn-primary" id="input-completedDate-btn">
+                        <i class="fa fa-calendar"></i>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+  
+  
+            </div>
+  
+            <!-- *Task Status Buttons -->
+  
+            <div class="col-md-6 col-xs-12">
+              <span>Task Status</span>
+              <br>
+  
+  
+  
+              <select class="form-control"  ng-init="inputvm.dptaskstatusName = inputvm.taskstatusItems[0]" ng-options="status.name for status in inputvm.taskstatusItems track by status.id" ng-model="inputvm.dptaskstatusName">
+                </select >
+          
+            
+          
+              <div class="form-group" ng-show="inputvm.isMatters" style="margin: 9px 0;">
+                <div class="">
+                  <input type="checkbox" ng-model="inputvm.matterCoreTeamReminder" />
+                  <label style="font-size: 14px; padding-top: 9px;">Send system generated reminder for this task before it becomes due.</label>
+                </div>
+              </div>
+  
+            </div>
+  
+  
+  
+  
+          </div>
+  
+  
+        </div>
+  
+        <!-- HIDE IF ON MATTERS LANDING PAGE -->
+        <div ng-hide="inputvm.hideAdvancedOptions">
+        <!-- ----------------------
+              * ADVANCED OPTIONS TOGGLE
+              ------------------------>
+        <div class="form-group" ng-click="inputvm.showAdvancedOptions()" style="margin-top: 4px;">
+          <span class="advancedOptions-title">Advanced Options</span>
+          <span class="closed-advanced" ng-show="!inputvm.isAdvancedPost == true"
+            ng-click="inputvm.showAdvancedOptions()">
+            <i class="fa fa-plus-square" ng-click="inputvm.showAdvancedOptions()"></i>
+          </span>
+          <span class="closed-advanced" ng-show="inputvm.isAdvancedPost" ng-click="inputvm.showAdvancedOptions()">
+            <i class="fa fa-minus-square" ng-click="inputvm.showAdvancedOptions()"></i>
+          </span>
+        </div>
+  
+        <!-- ----------------------
+              * ADVANCED OPTIONS
+              ------------------------>
+        <div ng-show="inputvm.showForm.fullpost" class="clearfix" style="position: relative;">
+          <hr style="border-width: 3px; margin-top: 0px !important; margin-bottom: 0px !important;" />
+  
+          <!-- * LEFT COLUMN -->
+          <div class="col-xs-12 col-md-6" style="padding-left: 0; margin-top: 20px;">
+            <div class="form-group">
+              <label>Content Owner</label>
+              <input id="input-contentOwner" type="text" ng-model="inputvm.contentOwner" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Key Contacts</label>
+              <input id="input-keyContacts" type="text" ng-model="inputvm.keyContacts" class="form-control">
+            </div>
+            <div class="form-group">
+              <input id="input-redirectNewWindow" type="checkbox" ng-model="inputvm.redirectNewWindow"
+                ng-true-value="true" ng-false-value="false" />
+              <label>Redirect URL in New Window</label>
+              </br>
+              <!-- <label>Redirect URL</label> -->
+              <input ng-disabled="!inputvm.redirectNewWindow" id="input-redirectUrl" type="text"
+                ng-model="inputvm.redirectUrl" class="form-control" placeholder="Enter URL">
+            </div>
+            <!-- <div class="form-group">
+              <label>Embed Video</label>
+              <textarea id="input-embedVideo" type="text" ng-model="inputvm.embedVideo" class="form-control"></textarea>
+            </div> -->
+          </div>
+  
+          <!-- * RIGHT COLUMN -->
+          <div class="col-xs-12 col-md-6" style="margin-top: 20px;padding-right: 2px;">
+  
+            <div class="form-group">
+              <div>
+                <label>Published Date</label>
+                <div class="input-group" ng-click="inputvm.showCalPublishedDate()">
+                  <input id="input-publishedDate" type="text" class="form-control wc-dates" placeholder="Published Date"
+                    ng-mouseover="inputvm.closeCal()">
+                  <span class="input-group-btn">
+                    <a id="input-publishedDate-btn" class="btn btn-primary">
+                      <i class="fa fa-calendar"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label>Post Status</label>
+              <input id="input-status" type="text" class="form-control" ng-model="inputvm.postStatus" disabled>
+            </div>
+            <div class="checkGroup form-group">
+              <input id="input-allowInteractive" type="checkbox" ng-model="inputvm.allowInteractive" ng-true-value="true"
+                ng-false-value="false" />
+              <label>Allow Likes/Comments/Share</label>
+              <br />
+              <input id="input-showOnSite" type="checkbox" ng-model="inputvm.showOnSite" ng-true-value="true"
+                ng-false-value="false" />
+              <label>Show on Site Homepage</label>
+              <br />
+              <input ng-show="inputvm.showPinPost" id="input-pinnedPost" type="checkbox" ng-model="inputvm.pinnedPost" ng-true-value="true"
+                ng-false-value="false" ng-click="inputvm.onClickPinPost()"/>
+              <label>Pin post on this site</label>
+              <br />
+            </div>
+            <div class="form-group">
+              &nbsp;
+            </div>
+          </div>
+        </div><!-- END OF ADVANCED OPTIONS-->
+      </div>
+        <!-- ----------------------
+              * FORM ACTION BUTTONS
+              ------------------------>
+        <div class="wc-pi-savebar col-xs-12">
+          <a class="btn btn-primary pull-right" ng-click="inputvm.savePublishedPostData()"
+            ng-hide="inputvm.editMode == true">Post</a>
+          <a class="btn btn-primary pull-right" ng-click="inputvm.savePublishedPostData()"
+            ng-show="inputvm.editMode == true && inputvm.postStatus !== 'Draft'">Save</a>
+          <a class="btn btn-primary pull-right" ng-click="inputvm.savePublishedPostData()"
+            ng-show="inputvm.editMode == true && inputvm.postStatus === 'Draft'">Publish</a>
+          <a class="btn btn-danger pull-right" ng-click="inputvm.deletePost()"
+            ng-show="inputvm.editMode == true">Delete</a>
+          <a class="btn btn-default pull-right" ng-click="inputvm.saveDraftPostData()"
+            ng-show="inputvm.showDraftBtn">Save as Draft</a>
+          <!-- <a class="btn btn-default pull-right" ng-click="saveDraftPostData()" ng-show="EditMode == false" >Save as Draft</a> -->
+          <!-- <a class="btn btn-default pull-right" ng-click="inputvm.saveDraftPostData()">Save as Draft</a> -->
+          <a class="btn btn-default pull-right" ng-click="inputvm.cancel()" style="height: 31px;">Cancel</a>
+        </div>
+  
+      </div>
+  
+    </form>
+  
+  </div>

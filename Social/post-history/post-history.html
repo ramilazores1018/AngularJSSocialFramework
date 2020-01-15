@@ -1,0 +1,22 @@
+<div ng-show="historyvm.isLoading && !historyvm.showHistory">
+    <wc-loader loading-text="Getting post history..."></wc-loader>
+</div>
+<br/>
+<div ng-show="!historyvm.isLoading && historyvm.showHistory">    
+    <b>Created by:</b> {{historyvm.createdBy}} on {{historyvm.created}}<br/>
+    <span ng-show="historyvm.showModifiedBy"><b>Modified by:</b> {{historyvm.modifiedBy}} on {{historyvm.modified}}</span>
+    <br/>
+</div>
+<br/>
+<div ng-show="historyvm.showSharedTo">
+    <b>Shared to:</b><br/>
+    <div ng-repeat="post in historyvm.sharedTo">
+        <a href="{{post.link}}" >{{post.title}}</a> by {{post.createdBy}} on {{post.createdDate}}
+    </div>
+    <div class="see-all-container" ng-show="historyvm.showSeeAll">
+        <a class="see-all" ng-click="historyvm.seeAll()">Show All</a>
+    </div>
+    <div class="see-all-container" ng-show="historyvm.showSeeLess">
+        <a class="see-all" ng-click="historyvm.seeLess()">Show Less</a>
+    </div>
+</div>

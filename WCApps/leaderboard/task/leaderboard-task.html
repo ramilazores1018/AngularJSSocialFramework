@@ -1,0 +1,38 @@
+<div class="panel panel-bordered panel-WC">
+  <div class="panel-heading">
+          <h3 class="panel-title" style="font-weight: bold !important">
+      Tasks
+    </h3>
+  </div>
+  <div class="panel-body" ng-repeat="taskRec in leadertaskvm.taskList" ng-show="leadertaskvm.taskList.length > 0">
+
+          <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="fa fa-tasks">
+                      <a ng-href="{{taskRec.siteurl}}pages/post.aspx?pID={{taskRec.id}}" style="padding-left:10px;line-height:19.6px !important; font-family:Arial, Helvetica, sans-serif !important">
+                  {{ leadertaskvm.truncate(taskRec.title) }}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                      <div style="padding-left: 26px;">
+                  <a ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{taskRec.postcontentowner_tid}}" style="color:#000;font-weight:bold" >
+                    {{ leadertaskvm.truncate(taskRec.assignedto_displayname)}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+       
+  </div>
+
+  <div class="panel-body" ng-show="leadertaskvm.taskList.length <= 0" style="padding:5px;">
+    No open tasks.
+    </div>
+</div>
+

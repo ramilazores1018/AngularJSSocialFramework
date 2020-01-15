@@ -1,0 +1,51 @@
+<div style="padding-top: 25px;" class="homepage-feeds-container">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+    <li role="presentation" class="active" ng-click="homevm.loadTab('sitesFollowing')">
+      <a href="#sitesFollowing" aria-controls="sitesFollowing" role="tab" data-toggle="tab">
+        Sites I&#39;m Following
+
+      </a>
+    </li>
+
+    <li role="presentation" ng-click="homevm.loadTab('tagsFollowing')">
+      <a href="#tagsFollowing" aria-controls="tagsFollowing" role="tab" data-toggle="tab">
+        Tags I&#39;m Following
+      </a>
+    </li>
+
+    <li role="presentation" ng-click="homevm.loadTab('peopleFollowing')">
+      <a href="#peopleFollowing" aria-controls="peopleFollowing" role="tab" data-toggle="tab">
+        People I&#39;m Following
+      </a>
+    </li>
+
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+    <!-- SITES FOLLOWING TAB -->
+    <div role="tabpanel" class="tab-pane active" id="sitesFollowing" ng-if="homevm.showSitesFollowing">
+      <feeds input-homepage-tab="sitesFollowing"></feeds>
+    </div>
+
+    <!-- HASHTAGS FOLLOWING TAB -->
+    <div role="tabpanel" class="tab-pane" id="tagsFollowing" ng-if="homevm.showTagsFollowing">
+      <!-- <div ng-show="homevm.showTagsTab"> -->
+      <feeds input-homepage-tab="tagsFollowing"></feeds>
+      <!-- </div> -->
+    </div>
+
+    <!-- PEOPLE FOLLOWING TAB -->
+    <div role="tabpanel" class="tab-pane" id="peopleFollowing" ng-if="homevm.showPeopleFollowing">
+      <!-- <div ng-show="homevm.showPeopleTab"> -->
+      <feeds input-homepage-tab="peopleFollowing"></feeds>
+      <!-- </div> -->
+    </div>
+
+  </div>
+
+</div>

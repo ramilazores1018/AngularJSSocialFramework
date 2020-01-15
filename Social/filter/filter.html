@@ -1,0 +1,15 @@
+<div ng-show="filtervm.showFilterBar">
+  <div class="panel panel-default filter-panel">
+      <!-- <div class="panel-heading filter-heading">Current Filter</div> -->
+    <div class="panel-body filter-body">
+      <ul class="nav nav-pills" role="tablist">
+            <li role="presentation"  
+                    ng-repeat="(filter,prop) in filtervm.filters" 
+                    class="filter-pills" 
+                    ng-if="(filter && prop) && filter != 'poststatus' && filter != 'siteurl' && filter != 'postincludeonhomepage'">
+                <a href="#" class="filter-link">{{prop}} <span class="badge filter-badge" ng-click="filtervm.clear(filter,prop)">X</span></a>
+            </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+/******** TINY MCE *********/
+i.mce-i-fa-file-image:before {
+  content: "\f1c5";
+  font-family: FontAwesome;
+}
+
+i.mce-i-fa-file:before {
+  content: "\f15b";
+  font-family: FontAwesome;
+}
+
+i.mce-i-plus-circle:before {
+  content: "\f055";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  color: #000;
+  font-size: 1em;
+  padding-right: 0.5em;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+/* Removes border around Tiny's inline button */
+.mce-tinymce.mce-tinymce-inline.mce-container.mce-panel {
+  border: 0;
+}
+
+/* Overwrite green color from EWF.css */
+#sitesFollowing {
+  color: #333;
+}
+
+
+  #mceu_33-body{
+    OVERFLOW-Y:scroll !important;
+    HEIGHT:215px !important;
+  }
+
+
+
+

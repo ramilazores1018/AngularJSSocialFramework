@@ -1,0 +1,353 @@
+.wc-post-card {
+  padding: 10px 20px 4px 20px;
+  position: relative;
+  margin-top: 15px;
+
+}
+
+.hashtag-menu-item {
+  height: 25px;
+  line-height: 25px;
+  padding: 0px 8px;
+}
+
+.hashtag-menu-item:hover,
+.hashtag-menu-item:hover a,
+.hashtag-menu-item>a:hover {
+  cursor: pointer;
+  background: #09c;
+  color: white !important;
+}
+
+.wc-post-hashtags {
+  font-size: 1em;
+  color: black;
+  background-color: white;
+}
+
+/* .wc-post-hashtags a:hover {
+    color: white;
+    background-color: #09c;
+  } */
+
+.wc-post-card,
+.wc-post-share-ctn,
+.wc-post-comments-ctn {
+  border: 1px solid #a3a3a3;
+}
+
+.wc-post-matters-keypost {
+  position: relative;
+  float: left;
+  padding-right:13px;
+  font-size: 20px;
+  /* top: 10px;
+  right: 55px; */
+}
+
+.wc-post-matters-keypost i {
+  color: rgb(231, 228, 28);
+}
+
+.wc-post-card {
+  border-bottom: none;
+}
+
+.wc-post-card-noComments {
+  border-bottom: 1px solid #a3a3a3;
+}
+
+.wc-post-share-ctn,
+.wc-post-comments-ctn {
+  border-top: none;
+}
+
+.wc-post-errorPanel {
+  position: absolute;
+  background: rgb(224, 101, 101);
+  width: 100%;
+  z-index: 3;
+  left: 0;
+  top: 0;
+}
+
+.wc-post-errorPanel-closeBtn {
+  opacity: 0.9 !important;
+  padding-top: 3px;
+}
+
+.wc-post-errorPanel-closeBtn span {
+  color: white !important;
+  opacity: 0.9 !important;
+}
+
+/* ===================================================================
+  POST HEADER 
+  TILE, CONTENT OWNER INFO, ACTIONS, AND ICON
+*/
+.wc-post-header-ctn {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.wc-post-postDetails {
+  margin-top: 8px;
+}
+
+.wc-post-title {
+  font-weight: normal !important;
+  margin-right: 25px !important;
+  margin-top: 6px;
+  font-size: 1.8em;
+  color: #09c;
+  font-weight: none !important;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wc-post-ownerImage {
+  margin-right: 10px;
+  max-width: 30px;
+  height: 38px;
+  padding:0px !important;
+}
+
+.wc-post-actionsToggle {
+  position: absolute;
+  right: 18px;
+  z-index: 2;
+  top: 0px;
+  cursor: pointer;
+
+}
+
+.wc-post-ribbon {
+  /* background: #09c; */
+  position: absolute;
+  padding: 10px 8px;
+  color: #09c;
+  right: 52px;
+  top: 5px;
+}
+
+/* =================================================================
+POST BODY SECTION
+ */
+.wc-postBody-ctn {
+  padding: 10px 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  float: left;
+  width: 100% !important;
+  box-sizing: content-box;
+  /* padding-bottom: 80px; */
+  /* height: 300px; */
+}
+
+.wc-postBody-ctn iframe {
+  max-width: 100% !important;
+}
+
+.wc-postBody-ctn img {
+  max-width: 100% !important;
+  padding:10px !important;
+  width: 100%;
+}
+
+.wc-postBody-ctn p {
+  padding-bottom: 0px !important;
+  margin: 0;
+  /* height: 18.8px;
+    line-height: 19.6px; */
+}
+
+.wc-postBody-ctn p:empty {
+  padding-bottom: 18.8px !important;
+}
+
+.wc-postBody-ctn p:-moz-only-whitespace {
+  padding-bottom: 18.8px !important;
+}
+
+/* Line spacing for empty p --> span tags. This can happens in cases where user has copied empty lines from other sources and pasted into Tiny */
+.wc-postBody-ctn p > span:empty {
+  padding-bottom: 18.8px !important;
+  display: block;
+}
+
+.wc-postBody-ctn p > span > em:empty {
+  padding-bottom: 18.8px !important;
+  display: block;
+}
+
+.wc-postBody-ctn p span:-moz-only-whitespace {
+  padding-bottom: 18.8px !important;
+}
+
+.wc-postBody-ctn div:empty {
+  padding-bottom: 18.8px !important;
+}
+
+.wc-overflow-visible-y {
+  overflow-y: visible;
+}
+
+/* =================================================================
+  FOOTER
+  COMMENT, LIKE, AND SHARE
+*/
+.wc-post-footer-likeList {
+  margin-bottom: 5px;
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.wc-post-footer-likeList li {
+  display: inline-block;
+  margin-right: 10px;
+  list-style: none;
+  color: #09c;
+}
+
+.wc-post-footer-likeList li:hover {
+  cursor: pointer;
+  /* opacity: 0.8; */
+}
+
+.wc-post-liker {
+  width: 200px;
+  padding-left: 15px;
+}
+
+.wc-post-likerslist {
+  min-height: 30px;
+  max-height: 130px;
+  min-width: 220px;
+  overflow: auto;
+}
+
+.wc-post-sharebody {
+  overflow: hidden;
+  position: relative;
+  margin: 10px 0px;
+  border: 1px solid lightgray;
+  min-height: 25px;
+  padding: 10px 15px;
+}
+
+.wc-post-share-ctn {
+  padding: 8px 15px 20px 15px;
+  background: #e6e6e6;
+  position: relative;
+}
+
+.wc-post-share-title {
+  padding-left: 12px;
+  margin-top: 5px;
+}
+
+.wc-post-share-btn {
+  text-align: center;
+  width: 100%;
+}
+
+.wc-post-share-closeBtn {
+  position: absolute;
+  right: 28px;
+  top: 13px;
+}
+
+.wc-post-share-closeBtn:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.wc-post-comments-ctn {
+  padding-top: 5px;
+  padding: 5px 15px 15px 15px;
+  /* background: #f6f6f6; */
+}
+
+.ms-sel-ctn .ms-sel-item .ms-close-btn:before {
+  content: "x";
+}
+
+.ms-sel-ctn .ms-sel-item .ms-close-btn {
+  margin: 0px 0px 0px 6px !important;
+}
+
+/* The following is applied to clear out a conflict with the old
+interactive-thread.css  */
+.ms-sel-ctn .ms-sel-item .ms-close-btn:after {
+  content: "";
+}
+
+.share-details:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hashtag {
+  color: #09c;
+  /* Removed margins because of bug #510 CONNECT: [Socials] Hashtag spacing issues
+  margin-left: 4px;
+  margin-right: 4px; */
+}
+
+.hashtag:hover {
+  cursor: pointer;
+}
+
+.taskstatusindicator {
+  padding-right: 5px;
+  color: darkgray;
+}
+
+.taskStatusActive {
+  background-color: #09C !important;
+  color: white !important;
+}
+
+.post-type-details div {
+  padding-left: 0px !important;
+}
+
+.fixedPositionTinyToolbarParent {
+  padding-top: 50px;
+}
+
+.fixedPositionTinyToolbar {
+  /* position: absolute;
+    top: 0;
+    left: 75px;
+    right: 0;
+    bottom: 0; */
+  z-index: 9;
+  background: none !important;
+  border: none !important;
+}
+
+.person-image-container {
+  margin-right: 10px;
+}
+
+.transitions {
+  margin-top: 0px;
+}
+
+.popover-content {
+  padding: 0 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.hashtag-insert,
+.mentionsSelector {
+  /* margin: 0 2px; */
+}
+
+.pin-post {  
+  transform: rotate(45deg);
+  color: #f90;
+  font-size: 20px;
+  padding-right: 10px;
+}

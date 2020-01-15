@@ -1,0 +1,338 @@
+<!-- COMMENTS CONTAINER -->
+
+
+<div ng-show="threadvm.showMoreLess">
+
+<div ng-show="threadvm.limitToComments === -2 && threadvm.comments.length > 2" class="comment-show-more"
+    ng-click="threadvm.toggleShowComments()">
+    Show More Comments
+    <!-- Show More Comments ({{ threadvm.comments.length - 2 }}) -->
+
+</div>
+<div ng-show="threadvm.limitToComments === 100 && threadvm.comments.length > 2" class="comment-show-more" ng-click="threadvm.toggleShowComments()">
+    Show Fewer Comments
+</div>
+
+</div>
+
+<div class="comments clearfix">
+
+
+    <div ng-hide="threadvm.view.isLoadingComments">
+
+        <!-- =========================================================
+          COMMENT REPEATER CONTAINER
+          ========================================================== -->
+        <ul class="comment-list-ctn col-xs-12 no-pad-no-margin">
+
+            <!-- =========================================================
+            COMMENT CONTAINER
+            ========================================================== -->
+            <li class="comment-ctn" ng-repeat="comment in threadvm.comments | limitTo: threadvm.limitToComments">
+
+                <div class="clearfix"
+                    ng-style="comment.replies.length > 0 ?  {'padding-bottom': '15px'} : {'padding-bottom': '0px'}">
+
+                    <!-- EDIT ICON -->
+                    <i ng-show="comment.showEditIcon"
+                        class="comment-edit-btn fa fa-pencil-square-o" aria-hidden="true"
+                        ng-click="threadvm.editComment(comment)"></i>
+                    <i ng-show="comment.showXIcon" class="comment-edit-btn fa fa-close" aria-hidden="true"
+                        ng-click="threadvm.clearEditMode(comment)"></i>
+
+                    <div class="row no-pad-no-margin">
+
+                        <!-- USER PHOTO CONTAINER -->
+                        <div class="comment-photo-ctn col-xs-1 no-pad-no-margin" style="margin-right: 4px;">
+                            <a ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{comment.timekeeper_id}}">
+                                <img class="comment-input-photo" ng-src="{{ comment.photo || threadvm.defaultPic }}">
+                            </a>
+                        </div>
+
+                        <div class="col-xs-10 col-sm-11 no-pad-no-margin">
+
+                            <!-- USER DISPLAY NAME -->
+                            <a ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{comment.timekeeper_id}}">
+                                {{comment.name || comment.__createdby}} - <span
+                                    class="comment-time">{{threadvm.formatCommentDate(comment.__created)}}</span>
+                            </a>
+
+                            <!-- COMMENT BODY -->
+                            <div ng-hide="!comment.hideEditInput" class="comment-comment-text"
+                                ng-bind-html="comment.postcomment"></div>
+
+                            <!-- EDIT MODE INPUT BOX -->
+                            <div ng-hide="comment.hideEditInput" class="comment-edit-input input-group"
+                                ng-style="{width: threadvm.editCommentContainerWidth }" style="width:100%">
+                                <span class="input-group-addon">
+                                    <a ng-click="threadvm.deleteComment(comment)">
+                                        <i class="fa fa-trash hand" style="color: red;"></i>
+                                    </a>
+                                </span>
+                                <div class="input-group-btn" style="padding: 0px 5px 0px 0px;">
+                                    <div class="" id="editCommentTinyToolbar-{{ comment.id }}-{{threadvm.noForId}}">
+                                    </div>
+                                </div>
+                                <div type="text" id="editCommentInput-{{ comment.id }}-{{threadvm.noForId}}"
+                                    class="comment-editComment-input form-control "></div>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary btn-wc"
+                                        ng-click="threadvm.saveEditedComment(comment.id, comment)">Save</button>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- LIKES CONTAINER -->
+                    <div ng-hide="comment.hideLikesCtn" class="comment-likes-ctn col-xs-12">
+
+                        <span ng-show="!comment.isLiked" class="comment-actions">
+                            <span ng-click="threadvm.likeComment(comment)">
+                                <i class="fa fa-thumbs-o-up wc-brand-fore" aria-hidden="true"></i>
+                                Like
+                            </span>
+
+                            <a class="comment-popover" tabindex="0" role="button" data-toggle="popover"
+                                data-trigger="focus" data-placement="top" title="Likes"
+                                data-content="{{comment.latestLikes }}" data-html="true">
+                                ({{comment.likeCount || 0}})
+                            </a>
+
+
+
+                        </span>
+
+
+                        <span ng-show="comment.isLiked" class="comment-actions">
+                            <span ng-click="threadvm.unlikeComment(comment)">
+                                <i class="fa fa-thumbs-o-up wc-brand-fore" aria-hidden="true"></i>
+                                You liked this comment
+                            </span>
+                            <a class="comment-popover" tabindex="0" role="button" data-toggle="popover"
+                                data-trigger="focus" data-placement="top" title="Likes"
+                                data-content="{{comment.latestLikes }}" data-html="true">
+                                ({{comment.likeCount || 0}})
+                            </a>
+                        </span>
+
+                        <span class="comment-actions" ng-click="threadvm.replyToComment(comment)"
+                            ng-hide="!comment.hideReplyInputBox">
+                            <i class="fa fa-reply wc-brand-fore" aria-hidden="true"></i>
+                            Reply
+                        </span>
+
+                        <span class="hide">{{comment.__created}}</span>
+
+                    </div>
+
+                    <!-- REPLY TO COMMMENT INPUT BOX -->
+                    <div ng-hide="comment.hideReplyInputBox" class="comment-reply-input-ctn input-group"
+                        style="width:100%;">
+                        <div class="input-group-btn" style="padding: 0px 5px 0px 0px;">
+                            <div class="" id="commentTinyToolbar-{{ comment.id }}-{{threadvm.noForId}}"></div>
+                        </div>
+                        <div id="commentInput-{{ comment.id }}-{{threadvm.noForId}}" type="text"
+                            class="tinyInlineBox form-control" placeholder="Add a Reply"
+                            ng-click="threadvm.initTinyBox('comment',comment)"></div>
+                        <span class="input-group-btn" style="padding: 0px 0px 0px 5px; border: none;">
+                            <button style="height: 34px;" type="button" class="btn btn-primary btn-wc"
+                                ng-click="threadvm.addReply(comment.id, comment, 'comment')">Post</button>
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================================
+                REPLY CONTAINER 
+                ========================================================== -->
+                <div ng-hide="comment.replies.length == 0" class="comment-ctn reply" class="clearfix">
+
+                    <ul class="comment-reply-ctn">
+
+                        <li ng-show="threadvm.limitToReplies== -1 && comment.replies.length > 1 && threadvm.showMoreLess"
+                            class="comment-show-more-reply" ng-click="threadvm.toggleShowReplies(comment)">
+                            Show More Replies ({{ comment.replies.length - 1 }})
+                        </li>
+
+                        <li ng-show="threadvm.limitToReplies == 100 && threadvm.showMoreLess" class="comment-show-more-reply"
+                            ng-click="threadvm.toggleShowReplies(comment)">
+                            Show Fewer Replies
+                        </li>
+
+                        <!-- =========================================================
+                  REPLY COMMENT REPEATER
+                  ========================================================== -->
+                        <li class="clearfix comment-reply"
+                            ng-repeat="reply in comment.replies | limitTo: threadvm.limitToReplies">
+
+                            <!-- EDIT ICON -->
+                            <i ng-show="reply.showEditIcon && !reply.inEditMode"
+                                class="comment-edit-btn fa fa-pencil-square-o" aria-hidden="true"
+                                ng-click="threadvm.editReply(reply)"></i>
+                            <i ng-show="reply.inEditMode" class="comment-edit-btn fa fa-close" aria-hidden="true"
+                                ng-click="threadvm.clearEditMode(reply)"></i>
+
+                            <div class="row no-pad-no-margin">
+
+                                <!-- USER PHOTO CONTAINER -->
+                                <div class="comment-photo-ctn col-xs-1 no-pad-no-margin" style="margin-right: 4px;">
+                                    <a
+                                        ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{reply.timekeeper_id}}">
+                                        <img class="comment-input-photo" width="27.6"
+                                            ng-src="{{ reply.photo || threadvm.defaultPic }}">
+                                    </a>
+                                </div>
+
+                                <div class="col-xs-10 col-sm-11 no-pad-no-margin">
+
+                                    <!-- USER DISPLAY NAME -->
+                                    <a
+                                        ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{reply.timekeeper_id}}">
+                                        {{reply.name || reply.__createdby}} - <span
+                                            class="comment-time">{{threadvm.formatCommentDate(reply.__created)}}</span>
+                                    </a>
+
+                                    <!-- COMMENT BODY -->
+                                    <div ng-hide="!reply.hideEditInput" class="comment-comment-text"
+                                        ng-bind-html="reply.postcomment"></div>
+
+                                    <!-- EDIT MODE INPUT BOX -->
+                                    <div ng-hide="reply.hideEditInput" class="comment-edit-input input-group"
+                                        style="padding-top: 0px;width:100%">
+                                        <span class="input-group-addon">
+                                            <a ng-click="threadvm.deleteComment(reply)">
+                                                <i class="fa fa-trash" style="color: red;"></i>
+                                            </a>
+                                        </span>
+                                        <div class="input-group-btn" style="padding: 0px 5px 0px 0px;">
+                                            <div class="" id="editReplyTinyToolbar-{{ reply.id }}-{{threadvm.noForId}}">
+                                            </div>
+                                        </div>
+                                        <div type="text" id="editReplyInput-{{ reply.id }}-{{threadvm.noForId}}"
+                                            class="comment-editComment-input form-control"></div>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary btn-wc"
+                                                ng-click="threadvm.saveEditedReply(reply.id, reply)">Save</button>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- LIKES CONTAINER -->
+                            <div ng-hide="reply.hideLikesCtn" class="comment-likes-ctn col-xs-12">
+
+                                <span ng-show="!reply.isLiked" class="comment-actions">
+                                    <span ng-click="threadvm.likeComment(reply)">
+                                        <i class="fa fa-thumbs-o-up wc-brand-fore" aria-hidden="true"></i>
+                                        Like
+                                    </span>
+
+                                    <a class="comment-popover" tabindex="0" role="button" data-toggle="popover"
+                                        data-trigger="focus" data-placement="top" title="Likes"
+                                        data-content="{{reply.latestLikes }}" data-html="true">
+                                        ({{reply.likeCount || 0}})
+                                    </a>
+                                </span>
+
+
+
+
+
+
+
+                                <span ng-show="reply.isLiked" class="comment-actions">
+
+                                    <span ng-click="threadvm.unlikeComment(reply)">
+                                        <i class="fa fa-thumbs-o-up wc-brand-fore" aria-hidden="true"></i>
+                                        You liked this comment
+                                    </span>
+
+                                    <a class="comment-popover" tabindex="0" role="button" data-toggle="popover"
+                                        data-trigger="focus" data-placement="top" title="Likes"
+                                        data-content="{{reply.latestLikes }}" data-html="true">
+                                        ({{reply.likeCount || 0}})
+                                    </a>
+
+
+                                </span>
+
+
+
+
+
+
+                                <span class="comment-actions" style="margin-right: 8px;"
+                                    ng-click="threadvm.replyToReply(reply)">
+                                    <i class="fa fa-reply wc-brand-fore" aria-hidden="true"></i>
+                                    Reply
+                                </span>
+
+                                <span class="hide">{{reply.__created}}</span>
+
+                            </div>
+
+                            <!-- REPLY TO REPLY INPUT BOX -->
+                            <div ng-hide="reply.hideReplyInputBox" class="comment-reply-input-ctn input-group"
+                                style="width:100%;">
+                                <div class="input-group-btn" style="padding: 0px 5px 0px 0px;">
+                                    <div class="" id="replyTinyToolbar-{{ reply.id }}-{{threadvm.noForId}}"></div>
+                                </div>
+                                <div id="replyInput-{{ reply.id }}-{{threadvm.noForId}}" type="text"
+                                    class="tinyInlineBox form-control"></div>
+                                <span class="input-group-btn" style="padding: 0px 0px 0px 5px; border: none;">
+                                    <button style="height: 34px;" type="button" class="btn btn-primary btn-wc"
+                                        ng-click="threadvm.addReply(comment.id, reply, 'reply')">Post</button>
+                                </span>
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- =========================================================
+        LOADING SPINNER CONTAINER
+        ========================================================== -->
+    <div ng-show="threadvm.view.isLoadingComments">
+        <wc-loader input-loading-message="Getting Comments...">
+        </wc-loader>
+    </div>
+
+
+    <!-- =========================================================
+     COMMENT INPUT CONTAINER
+    ========================================================== -->
+    <div ng-hide="threadvm.view.hideCommentInputBox" class="input-group" style="padding-top: 0px;width:100%">
+        <span class="input-group-addon"
+            style="min-width: 10px; padding: 0px 5px 0px 0px; border: none; vertical-align: top;">
+            <img class="no-pad-no-margin" ng-src="{{ threadvm.user.photo }}" height="32px">
+        </span>
+        <div class="input-group-btn" style="padding: 0px 5px 0px 0px; vertical-align: top;">
+
+            <!-- =========================================================
+             TINYMCE INLINE TOOLBAR
+            ========================================================== -->
+            <div class="" id="commentTinyToolbar-{{ threadvm.postId }}-{{threadvm.noForId}}"></div>
+        </div>
+        <div id="commentInput-{{ threadvm.postId }}-{{threadvm.noForId}}" type="text" class="tinyInlineBox form-control"
+            placeholder="Add a comment" ng-click="threadvm.initTinyBox('comment')"></div>
+        <span class="input-group-btn" style="padding: 0px 0px 0px 5px; border: none; vertical-align: top;">
+            <button style="height: 34px;" type="button" class="btn btn-primary btn-wc"
+                ng-click="threadvm.addComment()">Post</button>
+        </span>
+    </div>
+</div>
+
+</div>

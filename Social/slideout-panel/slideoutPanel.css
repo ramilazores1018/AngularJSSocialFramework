@@ -1,0 +1,81 @@
+#slideOut {
+  position: fixed;
+  width: 500px;
+  height: auto;
+  top: 30px;
+  right: -500px;
+  /* Animation  */
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+/* Display slideOut */
+
+.showSlideOut {
+  right: 0px !important;
+}
+
+/* Tab */
+
+.slideOutTab {
+  margin-top: 50px;
+  position: absolute;
+  left: -40px;
+  height: 200px;
+  width: 40px;
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  background: #09c;
+  border-radius: 15px 0px 0px 15px;
+  cursor: pointer;
+}
+
+.slideOutTab div {
+  text-align: center;
+  position: relative;
+  right: 70px;
+  top: 90px;
+  background: #09c;
+  width: 180px;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  writing-mode: lr-tb;
+}
+
+/* None relevant included styling */
+
+/* body,
+html {
+  background: #4DA6BB;
+  overflow: visible;
+  height: 100%;
+  width: 100%;
+}
+
+h1 {font-size:70px;margin-top:-90px}
+
+section:nth-child(2) {
+  background: #7876A0;
+}
+
+section {
+  height: 100%;
+  width: 100%;
+}
+
+.modal-body {
+  height: 400px;
+}
+
+section {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+ .intro {
+        display: table-cell;
+        vertical-align: middle;
+ 
+      } */

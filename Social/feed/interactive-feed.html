@@ -1,0 +1,120 @@
+<div ng-cloak ng-hide="feedvm.hideFeed" class="col-xs-12"
+  style="max-width: 98vw; margin: 0px 0px 0px 0px; padding: 0px 0px 35px 0px;">
+
+  <!-- ====================================== -->
+  <!-- FILTER BOX -->
+  <!-- ====================================== -->
+
+  <!-- FILTER BUTTON - NOT FILTERED -->
+  <div ng-hide="feedvm.filterPane.view.filtersApplied || feedvm.filterPane.view.hideFilter">
+    <div class="feed-filterBox-ctn-collapsed btn btn-primary" ng-show="!feedvm.filterPane.view.isExpanded"
+      ng-click="feedvm.toggleFilterPane()">
+      <i class="fa fa-filter"></i> Filter
+    </div>
+  </div>
+
+  <div ng-show="feedvm.filterPane.view.filtersApplied">
+    <filter-dir class="filter-directive" ng-if="feedvm.filterPane.view.filtersApplied"
+      input-filters="{{feedvm.feed.filters}}"></filter-dir>
+    <div class="feed-filterBox-ctn-collapsed btn btn-primary wc-btn" ng-show="!feedvm.filterPane.view.isExpanded"
+      ng-click="feedvm.toggleFilterPane()">
+      <i class="fa fa-filter"></i> Filters Applied
+    </div>
+  </div>
+
+  <!-- FILTER BOX -->
+  <div id="feed-filterBox-ctn" class="col-xs-12" ng-if="feedvm.filterPane.view.isExpanded"
+    ng-init="feedvm.initFilterBoxes()">
+
+    <div class="col-xs-12" style="font-size: 18px; color: black;">
+      Filter Feed
+      <hr style="margin: 7px 0px;">
+    </div>
+
+    <!-- CLOSE BUTTON -->
+    <span class="feed-filterBox-closeBtn">
+      <i class="fa fa-close" ng-click="feedvm.toggleFilterPane()"></i>
+    </span>
+    <!-- FITER BY TEXT -->
+    <div class="feed-filterBox-column col-xs-12">
+      <div class="form-group">
+        <label>Filter By Text</label>
+        <input class="form-control" type="text" ng-keypress="feedvm.handleEnterKeyEvent($event)"
+          ng-model="feedvm.filterPane.text" />
+      </div>
+    </div>
+
+    <!-- FILTER BY CATEGORY -->
+    <div class="feed-filterBox-column col-xs-12">
+      <div class="form-group">
+        <label>Filter By Category</label>
+        <input id="filter-by-category" class="filter-by-category form-control"
+          ng-keypress="feedvm.filterByEnterEventHndlr($event)" type="text" />
+      </div>
+    </div>
+
+    <!-- FILTER BY HASHTAGS -->
+    <div class="feed-filterBox-column col-xs-12">
+      <div class="form-group">
+        <label>Filter By Hashtag</label>
+        <input id="filter-by-hashtag" class="filter-by-hashtag form-control"
+          ng-keypress="feedvm.filterByEnterEventHndlr($event)" type="text" />
+      </div>
+    </div>
+
+    <div class="col-xs-12" style="margin-top: 8px;">
+      <a class="btn btn-primary pull-right" ng-click="feedvm.applyFilters()">Apply</a>
+      <a ng-click="feedvm.clearFilters()" class="btn btn-default pull-right" style="margin-right: 5px;">Clear
+        Filters</a>
+    </div>
+
+  </div>
+
+  <!-- ====================================== -->
+  <!-- FEED GRID -->
+  <!-- ====================================== -->
+  <div id="feed-grid-ctn" class="col-xs-12" style="padding-bottom:25px;">
+
+    <div ng-hide="!feedvm.feed.isLoading">
+      <wc-loader loader-text="Loading Feed"></wc-loader>
+    </div>
+
+
+    <div ng-hide="feedvm.feed.isLoading">
+
+      <!--  <span ng-hide="feedvm.feed.isLoading" ng-repeat="post in feedvm.feed.data" on-finish-render="initReadMore">  -->
+      <span ng-hide="feedvm.feed.isLoading" ng-repeat="post in feedvm.feed.data">
+        <posts input-post-data="{{post}}" input-disable-comments="{{feedvm.feed.config.disableComments}}"
+          input-following="{{feedvm.followedTags}}"
+          input-readmore-sites-to-skip="{{feedvm.readmoreSitesToSkip}}"></posts>
+
+      </span>
+
+
+      <div ng-hide="feedvm.hideFeed">
+          <div ng-cloak ng-show="feedvm.feed.data.length === 0 && !feedvm.feed.isLoading"
+            class="feed-loadmore-btn col-xs-12">
+            <i class="fa fa-exclamation-o"></i>
+            <!-- We were unable to find any posts here. You may contact the Help Desk if you believe there is an error. -->
+            <span id="feed-noposts">Sorry there are no posts</span>
+          </div>
+  
+           
+          <div class="feed-loadmore-btn" ng-cloak ng-hide="feedvm.feed.data.length == 0 || feedvm.hideLoadMore">
+  
+            <div
+              class="feed-loadmore-btn-edited" ng-click="feedvm.loadMorePosts()">
+              Load More Posts
+            </div>
+  
+          </div>
+          <div ng-show="feedvm.feed.view.loadmoreShowSpinner">
+            <wc-loader loader-text="Loading more posts..."></wc-loader>
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+
+</div>

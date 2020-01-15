@@ -1,0 +1,872 @@
+<wc-toaster show-toaster="{{inputvm.showToaster}}" input-type="wc-toaster"></wc-toaster>
+
+<div ng-hide="postvm.hideInEditMode">
+
+<!-- POST -->
+<div id="post-view" class="clearfix"  ng-hide="postvm.editMode">
+
+    <!-- =========================================================
+  * FULL POST TEMPLATE
+  ========================================================== -->
+    <div id="post{{postvm.post.id}}-{{postvm.noForId}}" data-post-id="{{postvm.post.id}}" class="wc-post-card col-xs-12" ng-class="{'wc-post-card-noComments' : !postvm.viewCtrl.showComments}"
+        ng-hide="postvm.post.isShare">
+
+        <div class="wc-post-card-readCtn">
+            <!--POST HEADER SECTION -->
+            <div class="wc-post-header-ctn">
+
+                <!-- KEY POST IDENTIFIER -->
+                <div class="wc-post-matters-keypost" ng-show="postvm.isMatters && postvm.post.keypost">
+                    <i class="fa fa-key"></i>
+                </div>
+                <div ng-show="postvm.isShowingAllSites()">
+                    <span>From <a href="{{postvm.post.siteurl}}">{{postvm.post.sitetitle}}</a></span>
+                </div>
+
+                <div ng-show="postvm.post.title">
+                    <!-- POST TITLE -->
+                    <h3 class="wc-post-title">
+                        <i class="fa fa-thumb-tack pin-post" aria-hidden="true" ng-show="postvm.showPinMarker(postvm.post)"></i>
+                        <a ng-href="{{postvm.post.linkToPost}}">
+
+                            <!-- POST TYPE IDENTIFIER -->
+                            <i ng-show="postvm.post.isevent && !postvm.post.iskeydate" class="fa fa-calendar"
+                                style="margin-right: 5px;font-size:20px;"></i>
+                            <i ng-show="postvm.post.posttype == 'Task'" class="fa fa-tasks"
+                                style="margin-right: 5px; font-size:20px;"></i>
+                            <i ng-show="postvm.post.iskeydate" class="fa fa-flag"
+                                style="margin-right: 5px; font-size:20px;"></i>
+
+                            {{ postvm.post.title }}
+
+                        </a>
+                    </h3>
+                </div>
+
+
+                <!-- POST DETAILS -->
+                <div class="wc-post-postDetails"
+                    ng-hide="postvm.post.task || postvm.post.isevent || postvm.post.iskeydate">
+
+                    <a href="{{postvm.post.postcontentowner_link}}">
+                        <img ng-src="{{ postvm.post.postcontentowner_photo }}" class="wc-post-ownerImage pull-left" />
+                    </a>
+
+                    <a href="{{postvm.post.postcontentowner_link}}" class="wc-brand-text">
+                        {{ postvm.post.postcontentowner_display }}
+                    </a>
+
+                    <br>
+
+                    {{ postvm.processDate(postvm.post.postpublished, false, 'DD MMMM YYYY') }}
+
+                </div>
+
+                <!-- ACTIONS MENU -->
+                <div class="wc-post-actionsToggle dropdown">
+
+                    <i class="fa fa-chevron-down" data-toggle="dropdown"></i>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+
+
+                        <li ng-show="postvm.post.currentusersubscribed == 1" style="cursor: pointer !important;">
+                            <a ng-click="postvm.unsubscribeFromPost()">
+                                <i class="fa fa-bell fa-fw" style="color:#edc508"></i>
+                                Turn off notifications for this post
+                            </a>
+                        </li>
+
+                        <li ng-show="postvm.post.currentusersubscribed == 0" style="cursor: pointer !important;">
+                            <a ng-click="postvm.subscribeToPost(postvm.post.id)">
+                                <i class="fa fa-bell-o fa-fw"></i>
+                                Turn on notifications for this post
+                            </a>
+                        </li>
+
+
+                        <li style="cursor: pointer !important;">
+                            <a href="" ng-click="postvm.postFeedback()">
+                                <i class="fa fa-exclamation-circle fa-fw"></i>
+                                Feedback about this post
+                            </a>
+                        </li>
+                        <li ng-show="postvm.editPostAccess"
+                            ng-click="postvm.editPost(postvm.post.parentwebfullurl,postvm.post.postid)" style="cursor: pointer !important;">
+                            <a>
+                                <i class="fa fa-edit fa-fw"></i>
+                                Edit
+                            </a>
+                        </li>
+
+                        <li ng-show="postvm.deletePostAccess" style="cursor: pointer !important;">
+                            <a ng-click="postvm.deletePost(postvm.post)">
+                                <i class="fa fa-trash-o fa-fw"></i>
+                                Delete
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- TASK DUE DATE -->
+            <div ng-show="postvm.post.posttype == 'Task'" class="col-xs-12"
+                style="padding: 0; margin: 0; margin-bottom: 10px;">
+
+                <div class="post-type-details col-xs-12 col-sm-6" style="padding: 0; margin: 0;">
+
+
+
+                    <div class="col-md-7 col-xs-12">
+                        <div class="col-xs-2" style="padding: 0; padding-bottom: 10px;">
+                            <a ng-href="{{postvm.post.postcontentowner_link}}">
+                                <img ng-src="{{ postvm.post.postcontentowner_photo }}"
+                                    class="wc-post-ownerImage pull-left" />
+                            </a>
+                        </div>
+
+                        <div>
+                            <a ng-href="{{postvm.post.postcontentowner_link}}" class="wc-brand-text">
+                                {{ postvm.post.postcontentowner_display }}
+                            </a>
+
+                            <br>
+
+                            <span style="color:grey;">{{ postvm.processDate(postvm.post.postpublished, false, 'DD MMMM YYYY') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-xs-12"><b style="font-size: 14px;color: gray;">Due Date: </b>
+                        <span class="row">{{ postvm.processDate(postvm.post.taskduedate, true)}}
+                        </span>
+                    </div>
+
+
+
+                    <div class="col-md-7 col-xs-12">
+
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6">
+                            <b style="font-size: 14px;color: gray;">Assigned To: </b>
+
+                            <a style="color: black" href="{{postvm.post.assignedto_link}}">
+                                <span class="row" style="color:#09C;">
+                                    {{postvm.post.assignedto_displayname}}</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-4 col-xs-12">
+
+                        <i class="fa fa-circle taskstatusindicator" ng-hide="postvm.post.taskstatus == 'Archived'"
+                            aria-hidden="true"></i>
+                        <i class="fa fa-circle taskstatusindicator" style="color:black"
+                            ng-show="postvm.post.taskstatus == 'Archived'" aria-hidden="true"></i>
+
+                        <i class="fa fa-circle taskstatusindicator" ng-hide="postvm.post.taskstatus == 'Not Started'"
+                            aria-hidden="true"></i>
+                        <i class="fa fa-circle taskstatusindicator" style="color:Red"
+                            ng-show="postvm.post.taskstatus == 'Not Started'" aria-hidden="true"></i>
+
+                        <i class="fa fa-circle taskstatusindicator" ng-hide="postvm.post.taskstatus == 'In Progress'"
+                            aria-hidden="true"></i>
+                        <i class="fa fa-circle taskstatusindicator" style="color:orange"
+                            ng-show="postvm.post.taskstatus == 'In Progress'" aria-hidden="true"></i>
+
+                        <i class="fa fa-circle taskstatusindicator" ng-hide="postvm.post.taskstatus == 'Completed'"
+                            aria-hidden="true"></i>
+                        <i class="fa fa-circle taskstatusindicator" style="color:lime"
+                            ng-show="postvm.post.taskstatus == 'Completed'" aria-hidden="true"></i>
+
+                        <span class="row"> {{postvm.post.taskstatus}}</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Event View -->
+            <div ng-show="postvm.post.isevent && !postvm.post.iskeydate" class="col-xs-12"
+                style="padding: 0; margin: 0; margin-bottom: 10px;">
+
+                <div class="post-type-details col-xs-12 col-sm-6" style="padding: 0; margin: 0;">
+
+                    <div class="col-md-7 col-xs-12">
+                        <div class="col-xs-2" style="padding: 0; padding-bottom: 10px;">
+                            <a ng-href="{{postvm.post.postcontentowner_link}}">
+                                <img ng-src="{{ postvm.post.postcontentowner_photo }}"
+                                    class="wc-post-ownerImage pull-left" />
+                            </a>
+                        </div>
+
+                        <div>
+                            <a ng-href="{{postvm.post.postcontentowner_link}}" class="wc-brand-text">
+                                {{ postvm.post.postcontentowner_display }}
+                            </a>
+
+                            <br>
+
+                            <span style="color:grey;">{{ postvm.processDate(postvm.post.postpublished, false, 'DD MMMM YYYY') }}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4 col-xs-12"><b style="font-size: 14px;color: gray;">Start Date: </b>
+                        <span class="row">{{ postvm.processDate(postvm.post.event_start_date, true)}}
+                        </span>
+                    </div>
+
+                    <div class="col-md-7 col-xs-12">
+
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6">
+                            <b style="font-size: 14px;color: gray;">Location: </b>
+                            <span class="row">
+                                {{postvm.post.location}}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 col-xs-12"><b style="font-size: 14px;color: gray;">End Date: </b>
+                        <span class="row">{{ postvm.processDate(postvm.post.event_end_date, true)}}
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Milestone -->
+            <div ng-show="postvm.post.iskeydate" class="col-xs-12" style="padding: 0; margin: 0; margin-bottom: 10px;">
+
+                <div class="post-type-details col-xs-12 col-sm-6" style="padding: 0; margin: 0;">
+
+
+                    <div class="col-md-6 col-xs-12">
+
+                        <div class="col-xs-2" style="padding: 0; padding-bottom: 10px;">
+                            <a ng-href="{{postvm.post.postcontentowner_link}}">
+                                <img ng-src="{{ postvm.post.postcontentowner_photo }}"
+                                    class="wc-post-ownerImage pull-left" />
+                            </a>
+                        </div>
+                        <div>
+                            <a ng-href="{{postvm.post.postcontentowner_link}}" class="wc-brand-text">
+                                {{ postvm.post.postcontentowner_display }}
+                            </a>
+
+                            <br>
+
+                            <span style="color:grey;">{{ postvm.processDate(postvm.post.postpublished) }}</span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-6 col-xs-12"><b style="font-size: 14px;color: gray;">Due Date: </b>
+                        <span class="row">{{ postvm.processDate(postvm.post.milestonedate, true)}}
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- POST BODY SECTION -->
+            <div id="digest{{postvm.post.id}}-{{postvm.noForId}}" class="wc-postBody-ctn" ng-bind-html="postvm.post.displayDigest">
+
+
+            </div>
+
+
+            <!-- READMORE DIRECTIVE -->
+            <readmore 
+                id="readmore{{postvm.post.id}}-{{postvm.noForId}}" 
+                input-readmore-id="readmore{{postvm.post.id}}-{{postvm.noForId}}"
+                input-elm-to-resize="digest{{postvm.post.id}}-{{postvm.noForId}}" 
+                input-max-height="300" 
+                input-readmore-text="Read More"
+                input-readless-text="Read Less" 
+                input-show-readmore="{{postvm.showReadMore}}"></readmore>
+
+
+            <!-- KEY CONTACTS SECTION 
+            ng-show="postvm.post.key_contacts_id !== null && postvm.checkIfSinglePostView()"
+            -->
+            <div ng-hide="true">
+                <h4 style="color: dimgray;">Key Contacts</h4>
+
+                <div ng-repeat="person in postvm.post.keyContactsData">
+
+                    <div class="person-container" style="margin-bottom: 5px;">
+                        <div class="float-left person-image-container" style="margin-right: 5px;">
+                            <a href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{person.timekeeperid}}">
+                                <img class="person-image" height="35" ng-src="{{person.photo}}" />
+                            </a>
+                        </div>
+                        <div class="float-left" class="person-details">
+                            <div class="person-name" style="font-size: 13px;">
+                                <a
+                                    href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{person.timekeeperid}}">{{person.name}}</a>
+                            </div>
+                            <div class="person-office" style="font-size: 11px;">{{person.jobtitle}}</div>
+                            <!-- <div class="person-office">{{person.displaydepartment}}</div> -->
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- POST CATEGORIES DISPLAY -->
+            <div ng-hide="postvm.post.categories == ''" class="wc-post-category-ctn col-xs-12"
+                style="padding: 5px 0px 10px 0px;">
+                <span class="wc-post-category" ng-repeat="category in postvm.post.categories track by $index">
+                    <i class="fa fa-folder" style="color: #A8A8A8; margin-right: 2px;"></i>
+                    {{ postvm.cleanCategory(category) }}
+                </span>
+            </div>
+
+            <!-- POST FOOTER SECTION -->
+            <div class="wc-post-footer-ctn col-xs-12" style="padding: 0px;">
+
+                <!-- DRAFT MESSAGE AND QUICK PUBLISH BUTTON -->
+                <div class="wc-post-footer-draftctn" ng-show="postvm.post.isDraft">
+                    <span style="color: red;">Only you can see this post. To make this post public, select the publish
+                        button.</span>
+                    <a class="btn btn-default" ng-click="postvm.quickPublish()">Publish</a>
+                </div>
+
+                <div>
+                    <ul class="wc-post-footer-likeList" ng-show="postvm.showComments()">
+
+                        <!-- LIKES -->
+                        <li>
+
+                            <!-- LIKE POST -->
+                            <div ng-show="!postvm.viewCtrl.isPostLiked">
+
+                                <span ng-click="postvm.likePost()">
+                                    <i class="fa fa-thumbs-o-up"></i>
+                                    <span>Like </span>
+                                </span>
+
+                                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                                    data-placement="top" title="Likes"
+                                    data-content="{{ postvm.post.latestLikes }}" data-html="true">
+                                    ({{ postvm.post.likeCount || 0 }})
+                                </a>
+                            </div>
+
+                            <!-- UNLIKE POST -->
+                            <div ng-show="postvm.viewCtrl.isPostLiked">
+
+                                <span ng-click="postvm.unlikePost()">
+                                    <i class="fa fa-thumbs-up"></i>
+                                    <span>You Like This </span>
+                                </span>
+
+                                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                                    data-placement="top" title="Likes"
+                                    data-content="{{ postvm.post.latestLikes }}" data-html="true">
+                                    ({{ postvm.post.likeCount || 0 }})
+                                </a>
+                            </div>
+                        </li>
+
+                        <!-- COMMENTS -->
+                        <li ng-show="postvm.viewCtrl.showComments">
+                            <i class="fa fa-comments-o"></i> Comments ({{ postvm.commentCount || 0 }})
+                        </li>
+
+                        <!-- SHARES -->
+                        <li ng-click="postvm.toggleSharePane()" ng-hide="postvm.isMatters">
+                            <i class="fa fa-share"></i> Share
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================================================
+  * SHARED POST TEMPLATE
+  ========================================================== -->
+<div class="wc-post-card col-xs-12" ng-show="postvm.post.isShare">
+
+    <div id="post{{postvm.post.id}}-{{postvm.noForId}}" data-post-id="{{postvm.post.id}}" class="wc-post-card-readCtn">
+
+        <!--POST HEADER SECTION -->
+        <div class="wc-post-header-ctn">
+
+
+
+            <!-- FROM SITE -->
+            <div ng-show="postvm.isShowingAllSites()">
+                <span>From <a href="{{postvm.post.siteurl}}">{{postvm.post.sitetitle}}</a></span>
+            </div>
+
+            <!-- POST DETAILS -->
+            <div class="wc-post-postDetails">
+
+                <i class="fa fa-thumb-tack pin-post" aria-hidden="true" ng-show="postvm.showPinMarker(postvm.post)"></i>
+                <a title="Click to go to {{ postvm.post.postcontentowner_display }}'s profile"
+                    class="wc-brand-text share-details" ng-href="{{postvm.post.postcontentowner_link}}">
+                    <i class="fa fa-retweet"></i>
+                    {{ postvm.post.postcontentowner_display }}
+                </a>
+
+
+                shared a
+                <span ng-hide="postvm.post.task || postvm.post.isevent || postvm.post.iskeydate">post</span>
+                <span ng-show="postvm.post.task">task</span>
+                <span ng-show="postvm.post.isevent">event</span>
+                from
+
+                <a title="Click to visit the {{postvm.post.parentpostsubwebtitle}} site"
+                    class="wc-brand-text share-details" ng-href="{{postvm.post.shareData.parentwebfullurl}}">
+                    {{postvm.post.parentpostsubwebtitle}}
+                </a>
+                -
+
+                {{ postvm.processDate(postvm.post.postpublished, false, 'DD MMMM YYYY') }}
+
+                <!-- SHARE MESSAGE -->
+                <div>
+                    <div class="wc-postBody-ctn" style="padding-bottom: 0;" ng-bind-html="postvm.post.displayDigest">
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIONS MENU -->
+            <div class="wc-post-actionsToggle dropdown">
+
+                <i class="fa fa-chevron-down" data-toggle="dropdown"></i>
+
+                <ul class="dropdown-menu dropdown-menu-right">
+
+                    <li ng-show="postvm.userSubscribed === true" style="cursor: pointer !important;">
+                        <a ng-click="postvm.unsubscribeFromPost()">
+                            <i class="fa fa-bell fa-fw" style="color:#edc508"></i>
+                            Turn off notifications for this post
+                        </a>
+                    </li>
+
+                    <li ng-show="postvm.userSubscribed === false" style="cursor: pointer !important;">
+                        <a ng-click="postvm.subscribeToPost(postvm.post.id)">
+                            <i class="fa fa-bell-o fa-fw"></i>
+                            Turn on notifications for this post
+                        </a>
+                    </li>
+
+
+                    <li style="cursor: pointer !important;">
+                        <a href="" ng-click="postvm.postFeedback()" >
+                            <i class="fa fa-exclamation-circle fa-fw"></i>
+                            Feedback about this post
+                        </a>
+                    </li>
+
+
+                    <li ng-show="postvm.editPostAccess"
+                        ng-click="postvm.editPost(postvm.post.parentwebfullurl,postvm.post.postid)" style="cursor: pointer !important;">
+                        <a>
+                            <i class="fa fa-edit fa-fw"></i>
+                            Edit
+                        </a>
+                    </li>
+
+                    <li ng-show="postvm.deletePostAccess" style="cursor: pointer !important;">
+                        <a ng-click="postvm.deletePost(postvm.post)">
+                            <i class="fa fa-trash-o fa-fw"></i>
+                            Delete
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- SHARE BODY CONTAINER -->
+        <div class="wc-post-sharebody clearfix">
+
+            <div ng-show="postvm.viewCtrl.isLoadingShare">
+                <wc-loader loading-text="Getting shared post."></wc-loader>
+            </div>
+
+            <div ng-hide="postvm.viewCtrl.isLoadingShare">
+
+                <!-- ORIGINAL POST HAS BEEN DELETED -->
+                <div ng-show="postvm.post.shareData.isDeleted == true">
+                    {{postvm.post.shareData.shareDisplayDigest}}
+                </div>
+
+                <div ng-show="postvm.post.shareData.isDeleted != true">
+
+                    <!-- POST TITLE -->
+                    <h3 ng-show="postvm.post.shareData.title" class="wc-post-title">
+
+                        <a
+                            ng-href="{{ postvm.post.shareData.parentwebfullurl }}/pages/post.aspx?pID={{postvm.post.shareData.id}}">
+
+                            <!-- POST TYPE IDENTIFIER -->
+                            <i ng-show="postvm.post.shareData.isevent" class="fa fa-calendar"
+                                style="margin-right: 5px;font-size:20px;"></i>
+                            <i ng-show="postvm.post.shareData.task" class="fa fa-tasks"
+                                style="margin-right: 5px; font-size:20px;"></i>
+                            <i ng-show="postvm.post.shareData.iskeydate" class="fa fa-flag"
+                                style="margin-right: 5px; font-size:20px;"></i>
+
+                            {{ postvm.post.shareData.title }}
+                        </a>
+
+                    </h3>
+
+                    <!-- POST DETAILS -->
+                    <div class="wc-post-postDetails">
+
+                        <!-- POST DETAILS -->
+                        <div class="wc-post-postDetails"
+                            ng-hide="postvm.post.shareData.task || postvm.post.shareData.isevent || postvm.post.shareData.iskeydate">
+
+                            <a ng-href="{{postvm.post.shareData.postcontentowner_link}}"
+                                class="wc-brand-text">
+                                {{ postvm.post.shareData.postcontentowner_display }}
+                            </a>
+
+                            <br>
+
+                            {{ postvm.processDate(postvm.post.shareData.postpublished, false, 'DD MMMM YYYY') }}
+
+                        </div>
+
+                        <!-- TASK DUE DATE -->
+                        <div ng-show="postvm.post.shareData.task" class="col-xs-12" style="padding: 0; margin: 10px 0;">
+
+                            <div class="post-type-details col-xs-12 col-sm-6" style="padding: 0; margin: 0;">
+
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="col-xs-2" style="padding: 0; padding-bottom: 10px;">
+                                        <a
+                                            ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{postvm.post.shareData.shareowner.timekeeperid}}">
+                                            <img ng-src="{{ postvm.post.shareData.shareowner.photo }}"
+                                                class="wc-post-ownerImage pull-left" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{postvm.post.shareData.shareowner.timekeeperid}}"
+                                            class="wc-brand-text">
+                                            {{ postvm.post.shareData.sharecontentowner_display }}
+                                        </a>
+
+                                        <br>
+
+                                        <span style="color:grey;">{{ postvm.processDate(postvm.post.postpublished) }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-xs-12"><b style="font-size: 14px;color: gray;">Due Date: </b>
+                                    <span class="row">{{ postvm.processDate(postvm.post.shareData.taskduedate, true)}}
+                                    </span>
+                                </div>
+
+                                <div class="col-md-6 col-xs-12"><b style="font-size: 14px;color: gray;">Assigned To: </b>
+
+                                    <a style="color: black" href="{{postvm.post.assignedto_link}}">
+                                        <span class="row" style="color:#09C;">
+                                            {{postvm.post.shareData.assignedto_displayname}}</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-6 col-xs-12">
+
+                                    <i class="fa fa-circle taskstatusindicator"
+                                        ng-hide="postvm.post.shareData.taskstatus == 'Archived'" aria-hidden="true"></i>
+                                    <i class="fa fa-circle taskstatusindicator" style="color:black"
+                                        ng-show="postvm.post.shareData.taskstatus == 'Archived'" aria-hidden="true"></i>
+
+                                    <i class="fa fa-circle taskstatusindicator"
+                                        ng-hide="postvm.post.shareData.taskstatus == 'Not Started'" aria-hidden="true"></i>
+                                    <i class="fa fa-circle taskstatusindicator" style="color:Red"
+                                        ng-show="postvm.post.shareData.taskstatus == 'Not Started'" aria-hidden="true"></i>
+
+                                    <i class="fa fa-circle taskstatusindicator"
+                                        ng-hide="postvm.post.shareData.taskstatus == 'In Progress'" aria-hidden="true"></i>
+                                    <i class="fa fa-circle taskstatusindicator" style="color:orange"
+                                        ng-show="postvm.post.shareData.taskstatus == 'In Progress'" aria-hidden="true"></i>
+
+                                    <i class="fa fa-circle taskstatusindicator"
+                                        ng-hide="postvm.post.shareData.taskstatus == 'Completed'" aria-hidden="true"></i>
+                                    <i class="fa fa-circle taskstatusindicator" style="color:lime"
+                                        ng-show="postvm.post.shareData.taskstatus == 'Completed'" aria-hidden="true"></i>
+
+                                    <span class="row"> {{postvm.post.shareData.taskstatus}}</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Event View -->
+                        <div ng-show="postvm.post.shareData.isevent" class="col-xs-12"
+                            style="padding: 0; margin: 0; margin-bottom: 10px;">
+
+                            <div class="post-type-details col-xs-12 col-sm-6" style="padding: 0; margin: 0;">
+
+                                <div class="col-md-6 col-xs-12">
+
+                                    <div class="col-xs-2" style="padding: 0; padding-bottom: 10px;">
+                                        <a
+                                            ng-href="{{postvm.post.shareData.postcontentowner_link}}">
+                                            <img ng-src="{{ postvm.post.shareData.postcontentowner_photo }}"
+                                                class="wc-post-ownerImage pull-left" />
+                                        </a>
+                                    </div>
+
+                                    <div style="margin-left: 34px;">
+                                        <a ng-href="{{postvm.post.shareData.postcontentowner_link}}"
+                                            class="wc-brand-text">
+                                            {{ postvm.post.shareData.postcontentowner_display }}
+                                        </a>
+
+                                        <br>
+
+                                        <span style="color:grey;">{{ postvm.processDate(postvm.post.shareData.postpublished, false, 'DD MMMM YYYY') }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-xs-12">
+
+                                    <b style="font-size: 14px;color: gray;">Start Date: </b>
+
+                                    <span class="row">{{ postvm.processDate(postvm.post.shareData.event_start_date, true)}}</span>
+
+                                </div>
+
+                                <div class="col-md-6 col-xs-12"><b style="font-size: 14px;color: gray;">Location: </b>
+
+
+                                    <span class="row">
+                                        {{postvm.post.shareData.location}}</span>
+
+                                </div>
+
+                                <div class="col-md-6 col-xs-12"><b style="font-size: 14px;color: gray;">End Date: </b>
+                                    <span class="row">{{ postvm.processDate(postvm.post.shareData.event_end_date, true)}}
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Milestone -->
+                        <div ng-show="postvm.post.shareData.iskeydate" class="col-xs-12"
+                            style="padding: 0; margin: 0; margin-bottom: 10px;">
+
+                            <div class="post-type-details col-xs-12 col-sm-6" style="padding: 0; margin: 0;">
+
+
+                                <div class="col-md-6 col-xs-12">
+
+                                    <div class="col-xs-2" style="padding: 0; padding-bottom: 10px; margin-right: 10px;">
+                                        <a
+                                            ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{postvm.post.shareData.shareowner.timekeeperid }}">
+                                            <img ng-src="{{ postvm.post.shareData.shareowner.photo }}"
+                                                class="wc-post-ownerImage pull-left" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a ng-href="/Pages/PersonDetail.aspx?DOCID=people::jdbc:people/{{postvm.post.shareData.shareowner.timekeeperid }}"
+                                            class="wc-brand-text">
+                                            {{ postvm.post.shareData.sharecontentowner_display }}
+                                        </a>
+
+                                        <br>
+
+                                        <span style="color:grey;">{{ postvm.processDate(postvm.post.postpublished) }}</span>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6 col-xs-12"><b style="font-size: 14px;color: gray;">Due Date: </b>
+                                    <span class="row">{{ postvm.processDate(postvm.post.due_date, true)}}
+                                    </span>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- POST BODY SECTION -->
+                        <div id="readmoreShared{{postvm.post.id}}-{{postvm.noForId}}" class="wc-postBody-ctn" style="max-width: 98% !important;"
+                            ng-bind-html="postvm.post.shareData.shareDisplayDigest"></div>
+
+                        <!-- READMORE DIRECTIVE -->
+                        <readmore id="readmore{{postvm.post.id}}-{{postvm.noForId}}" 
+                        input-readmore-id="readmore{{postvm.post.id}}-{{postvm.noForId}}"
+                        input-elm-to-resize="readmoreShared{{postvm.post.id}}-{{postvm.noForId}}" input-max-height="300" input-readmore-text="Read More"
+                        input-readless-text="Read Less" 
+                        input-show-readmore="{{postvm.showReadMore}}"
+                        input-skip-sites="{{postvm.readmoreSitesToSkip}}"></readmore> 
+                        
+                        <!-- POST CATEGORIES DISPLAY -->
+                        <div ng-hide="postvm.post.shareData.categories == ''" class="wc-post-category-ctn col-xs-12"
+                            style="padding: 5px 0px 10px 0px;">
+                            <span class="wc-post-category"
+                                ng-repeat="category in postvm.post.shareData.categories track by $index">
+                                <i class="fa fa-folder" style="color: #A8A8A8; margin-right: 2px;"></i> {{ category }}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- POST FOOTER SECTION -->
+        <div class="wc-post-footer-ctn col-xs-12" style="padding: 0px;" ng-show="postvm.showComments()"> <!-- hiding on shared posts -->
+
+            <div>
+                <ul class="wc-post-footer-likeList">
+
+                    <!-- LIKES -->
+                    <li>
+
+                        <!-- LIKE POST -->
+                        <div ng-show="!postvm.viewCtrl.isPostLiked" ng-show="postvm.showComments()">
+
+                            <span ng-click="postvm.likePost()">
+                                <i class="fa fa-thumbs-o-up"></i>
+                                <span>Like </span>
+                            </span>
+
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                                data-placement="top" title="Likes"
+                                data-content="{{postvm.post.latestLikes }}" data-html="true">
+                                ({{ postvm.post.likeCount || 0 }})
+                            </a>
+                        </div>
+
+                        <!-- UNLIKE POST -->
+                        <div ng-show="postvm.viewCtrl.isPostLiked">
+
+                            <span ng-click="postvm.unlikePost()">
+                                <i class="fa fa-thumbs-up"></i>
+                                <span>You Like This </span>
+                            </span>
+
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                                data-placement="top" title="Likes"
+                                data-content="{{ postvm.post.latestLikes }}" data-html="true">
+                                ({{ postvm.post.likeCount || 0 }})
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- COMMENTS -->
+                    <li ng-show="postvm.viewCtrl.showComments">
+                        <i class="fa fa-comments-o"></i> Comments ({{ postvm.commentCount || 0 }})
+                    </li>
+
+                    <!-- SHARES -->
+                    <li ng-click="postvm.toggleSharePane()">
+                        <i class="fa fa-share"></i> Share
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+  * SHARE PANE
+  ========================================================== -->
+<div class="wc-post-share-ctn col-xs-12" ng-show="postvm.viewCtrl.showSharePane">
+
+    <span class="wc-post-share-closeBtn">
+        <i ng-click="postvm.toggleSharePane(true)" class="fa fa-close"></i>
+    </span>
+
+    <h4 class="wc-post-share-title">Share this post</h4>
+
+    <!-- SHARE OPTIONS -->
+    <div ng-show="postvm.viewCtrl.showActionSelect">
+
+        <div class="col-xs-12 col-md-6">
+            <a ng-click="postvm.toggleShareToSite()" class="wc-post-share-btn btn btn-primary">Share to a Site</a>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+            <a ng-click="postvm.shareByEmail()" class="wc-post-share-btn btn btn-primary btn-wc">Share via Email</a>
+        </div>
+
+    </div>
+
+    <!-- SHARE BY SITE PANE -->
+    <div ng-show="postvm.viewCtrl.showShareBySite">
+
+        <div class="form-group col-xs-12">
+            <label>Select the site(s) you would like to share this post to</label>
+            <input id="siteShareCtrl-{{postvm.post.id}}-{{postvm.noForId}}" type="text" class="form-control" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <label>Share your thoughts (Optional)</label>
+            <div id="shareMessageCtrl-{{postvm.post.id}}-{{postvm.noForId}}" class="tinyInlineBox form-control"></div>
+        </div>
+
+        <div class="col-xs-12">
+            <a ng-click="postvm.toggleSharePane(true)" class="btn btn-default">Cancel</a>
+            <a class="btn btn-primary btn-wc" ng-click="postvm.sharePost()">Send Share</a>
+        </div>
+
+    </div>
+
+</div>
+<!-- HASHTAGS POPOVER -->
+<!-- <div class="hashtags hide">
+            <ul class="list-group">
+                <li><a class = "list-group-item" ng-show="postvm.following" onclick="postvm.unFollowHashtag(postvm.tagName)">Unfollow Hashtag</a></li>
+                <li><a class = "list-group-item" ng-show="!postvm.following" onclick="postvm.followHashtag(postvm.tagName)">Follow Hashtag</a></li>
+                <li><a class = "list-group-item" href="{postvm.thisSiteLink}">Search for tag on this site</a></li>
+                <li><a class = "list-group-item" href="{postvm.allSitesLink}">Search for tag on all sites</a></li>
+            </ul>
+    </div> -->
+
+<!-- =========================================================
+  * COMMENTS PANE
+  ========================================================== -->
+<div class="wc-post-comments-ctn col-xs-12 clearfix" ng-show="postvm.showComments()">
+    <thread input-site-url="{{ postvm.post.siteurl }}" input-post-id="{{ postvm.post.id }}" input-post="{{ postvm.post }}" input-comment-data=""
+        input-post-ownerid="{{postvm.post.postcontentowner_id}}"></thread>
+</div>
+
+<div class="wc-post-comments-ctn col-xs-12 clearfix" ng-hide="postvm.showComments()">
+    <!-- This adds the bottom border to the post when comments are hidden. Do not remove unless resolving this issue. -->
+</div>
+</div>

@@ -1,0 +1,56 @@
+<div style="font-size: 30px;font-family:Arial,Helvetica,sans-serif;padding-bottom: 10px">TRAINING ACTIVITIES</div>
+
+
+<div class="panel panel-bordered panel-WC" ng-repeat="dateContainer in activitiesvm.activityContainers">
+
+  <div class="panel-heading">
+    <h3 class="panel-title" style="font-weight: bold !important">
+      {{dateContainer.ctn}}
+    </h3>
+  </div>
+
+  <div class="panel-body" ng-repeat="item in dateContainer.data" ng-show="dateContainer.data.length > 0">
+
+
+    <div class="row" style="padding-bottom: 10px;">
+      <div class="col-md-3">
+
+        <div class="row">
+          <div class="col-md-12" style="font-size:18px;font-weight:bold">
+            <!--  Day  -->
+            {{activitiesvm.processDate(item.startdate, true, 'D')}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <!--  MONTH  -->
+            {{activitiesvm.processDate(item.startdate, true, 'MMMM')}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-3">
+        <!--  TIME  -->
+        {{activitiesvm.processDate(item.startdate, true, 'H:mm Z')}}
+      </div>
+
+      <div class="col-md-3">
+        <!--  EVENT NAME  -->
+        <a ng-href="{{item.siteurl }}/pages/post.aspx?pID={{item.id}}"> {{item.name}}</a>
+      </div>
+
+      <div class="col-md-3">
+        <!--  EVENT LOCATION  -->
+        {{item.eventlocation}}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel-body" ng-show="activitiesvm.todayActivityList.length <= 0">
+    No events to show.
+  </div>
+
+</div>

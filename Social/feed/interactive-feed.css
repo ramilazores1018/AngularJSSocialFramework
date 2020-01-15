@@ -1,0 +1,69 @@
+.wc-brand-text {
+  color: #09c;
+}
+
+#feed-grid-ctn .active span{
+  background-color: transparent;
+}
+
+.btn-wc {
+  background: #09c !important;
+}
+
+.feed-filterBox-ctn-collapsed:hover,
+.feed-filterBox-closeBtn:hover {
+  cursor: pointer;
+}
+
+.feed-filterBox-ctn-collapsed {
+  float: right;
+}
+
+#feed-filterBox-ctn {
+  position: relative;
+  background: #e6e6e6;
+  padding: 20px;
+}
+
+#feed-grid-ctn {
+  /* height: 60vh; */
+  padding: 0;
+  margin: 0;
+  margin-top: 0px;
+}
+
+.feed-filterBox-closeBtn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+
+.feed-filterBox-closeBtn:hover {
+  color: white;
+}
+
+.feed-loadmore-btn {
+  text-align: center;
+  padding: 18px 0px;
+  color: #09c;
+}
+
+.feed-loadmore-btn-edited:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+.feed-loadmore-btn-edited{
+  width: 115px;
+  height: 30px;
+  background-color: #09C;
+  color: #FFF;
+  display: inline-block;
+  margin-top: 15px;
+  padding-top: 7px;
+  font-size: 12px;
+}
+
+#feed-noposts{
+  color: #555;
+  
+}

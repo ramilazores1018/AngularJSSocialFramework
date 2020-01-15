@@ -1,0 +1,224 @@
+/*  Base class for toaster */
+.toaster {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  /*margin-left: -125px; /* Divide value of min-width by 2 */
+  text-align: center; /* Centered text */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  /* Remvoed the following to allow bootstrap alerts to take over*/
+  /*background-color: #333; /* Black background color */
+  /* color: #fff; /* White text color */
+  /* border-radius: 2px; /* Rounded borders */
+
+}
+
+.wc-toaster  {
+  background-color: #0099CC;
+  font-style:'Arial';
+  font-size: 14px;
+  color:  #ffffff !important;
+  font-weight: bold;
+}
+
+.toaster.fromRightTop{
+  top: 75px;
+  right: 60px; 
+}
+.toaster.fromRightCenter{
+  top: 50%;
+  right: 60px; 
+}
+
+.toaster.fromRightBottom{
+  bottom: 75px;
+  right: 60px; 
+}
+
+.toaster.fromBottomRight{
+  bottom: 75px;
+  right: 60px; 
+}
+
+.toaster.fromBottomCenter{
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+.toaster.fromBottomLeft{
+  left: 60px; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+.toaster.fromLeftBottom{
+  right: -60px; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+.toaster.fromTopCenter, .fromTopCenterFadeIn, .fromTopCenterFadeOut{
+  top: 60px;
+  right: 40%; 
+}
+
+@media screen and (max-width: 480px) {
+  .toaster.fromTopCenter, .fromTopCenterFadeIn, .fromTopCenterFadeOut{
+    top: 60px;
+    right: 0; 
+  }
+}
+@media screen and (max-width: 768px) and (min-width:481px) {
+  .toaster.fromTopCenter, .fromTopCenterFadeIn, .fromTopCenterFadeOut{
+    top: 60px;
+    right: 20%; 
+  }
+}
+@media screen and (max-width: 1024px) and (min-width:769px) {
+  .toaster.fromTopCenter, .fromTopCenterFadeIn, .fromTopCenterFadeOut{
+    top: 60px;
+    right: 30%; 
+  }
+}
+
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+.toaster.show.fromRightTop{
+  visibility: visible; /* Show the toaster */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fromRightTopFadeIn 0.5s, fromRightTopFadeOut 0.5s 2s;
+  animation: fromRightTopFadeIn 0.5s, fromRightTopFadeOut 0.5s 2s;
+}
+
+/* Animations to fade the toaster in and out */
+@-webkit-keyframes fromRightTopFadeIn {
+  from {right: 0; opacity: 0;} 
+  to {right: 60px; opacity: 1;}
+}
+
+@keyframes fromRightTopFadeIn {
+  from {right: 0; opacity: 0;}
+  to {right: 60px; opacity: 1;}
+}
+
+@-webkit-keyframes fromRightTopFadeOut {
+  from {right: 60px; opacity: 1;} 
+  to {right: 0; opacity: 0;}
+}
+
+@keyframes fromRightTopFadeOut {
+  from {right: 60px; opacity: 1;}
+  to {right: 0; opacity: 0;}
+}
+
+.toaster.show.fromRightCenter{
+  visibility: visible; /* Show the toaster */
+  /* Add animation: Take 0.5 seconds to fade in and out the toaster. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fromRightCenterFadeIn 0.5s, fromRightCenterFadeOut 0.5s 2s;
+  animation: fromRightCenterFadeIn 0.5s, fromRightCenterFadeOut 0.5s 2s;
+}
+
+/* Animations to fade the toaster in and out */
+@-webkit-keyframes fromRightCenterFadeIn {
+  from {right: 0; opacity: 0;} 
+  to {right: 60px; opacity: 1;}
+}
+
+@keyframes fromRightCenterFadeIn {
+  from {right: 0; opacity: 0;}
+  to {right: 60px; opacity: 1;}
+}
+
+@-webkit-keyframes fromRightCenterFadeOut {
+  from {right: 60px; opacity: 1;} 
+  to {right: 0; opacity: 0;}
+}
+
+@keyframes fromRightCenterFadeOut {
+  from {right: 60px; opacity: 1;}
+  to {right: 0; opacity: 0;}
+}
+
+.toaster.show.fromRightBottom{
+  visibility: visible; /* Show the toaster */
+  /* Add animation: Take 0.5 seconds to fade in and out the toaster. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fromRightBottomFadeIn 0.5s, fromRightBottomFadeOut 0.5s 2s;
+  animation: fromRightBottomFadeIn 0.5s, fromRightBottomFadeOut 0.5s 2s;
+}
+
+/* Animations to fade the toaster in and out */
+@-webkit-keyframes fromRightBottomFadeIn {
+  from {right: 0; opacity: 0;} 
+  to {right: 60px; opacity: 1;}
+}
+
+@keyframes fromRightBottomFadeIn {
+  from {right: 0; opacity: 0;}
+  to {right: 60px; opacity: 1;}
+}
+
+@-webkit-keyframes fromRightBottomFadeOut {
+  from {right: 60px; opacity: 1;} 
+  to {right: 0; opacity: 0;}
+}
+
+@keyframes fromRightBottomFadeOut {
+  from {right: 60px; opacity: 1;}
+  to {right: 0; opacity: 0;}
+}
+
+.toaster.show.fromTopCenterFadeIn{
+  visibility: visible; /* Show the toaster */
+  /* Add animation: Take 0.5 seconds to fade in and out the toaster. 
+  However, delay the fade out process for 2.5 seconds */
+  /* -webkit-animation: fromTopCenterFadeIn 0.5s, fromTopCenterFadeOut 0.5s 2s;
+  animation: fromTopCenterFadeIn 0.5s, fromTopCenterFadeOut 0.5s 2s; */
+
+  -webkit-animation-name: fromTopCenterFadeIn;
+  -webkit-animation-duration: 0.5s;
+  -ms-animation-name: fromTopCenterFadeIn;
+  -ms-animation-duration: 0.5s;
+  animation-name: fromTopCenterFadeIn;
+  animation-duration: 0.5s;
+}
+
+.toaster.show.fromTopCenterFadeOut{
+  visibility: visible; /* Show the toaster */
+  /* Add animation: Take 0.5 seconds to fade in and out the toaster. 
+  However, delay the fade out process for 2.5 seconds */
+  /* -webkit-animation: fromTopCenterFadeIn 0.5s, fromTopCenterFadeOut 0.5s 2s;
+  animation: fromTopCenterFadeIn 0.5s, fromTopCenterFadeOut 0.5s 2s; */
+
+  -webkit-animation-name: fromTopCenterFadeOut;
+  -webkit-animation-duration: 0.5s;
+  /* -webkit-animation-delay: 2s; */
+  -ms-animation-name: fromTopCenterFadeOut;
+  -ms-animation-duration: 0.5s;
+  /* -ms-animation-delay: 2s; */
+
+  animation-name: fromTopCenterFadeOut;
+  animation-duration: 0.5s;
+  /* animation-delay: 2s; */
+}
+
+/* Animations to fade the toaster in and out */
+@-webkit-keyframes fromTopCenterFadeIn {
+  from {top: 0; opacity: 0;} 
+  to {top: 60px; opacity: 1;}
+}
+
+@keyframes fromTopCenterFadeIn {
+  from {top: 0; opacity: 0;}
+  to {top: 60px; opacity: 1;}
+}
+
+@-webkit-keyframes fromTopCenterFadeOut {
+  from {top: 60px; opacity: 1;} 
+  to {top: 0; opacity: 0;}
+}
+
+@keyframes fromTopCenterFadeOut {
+  from {top: 60px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}

@@ -1,0 +1,11 @@
+<ul style="list-style-type:none;padding:0px" ng-repeat="dcRecItems in dcitemsvm.discoveryHeaderListItems" ng-show="dcitemsvm.discoveryHeaderListItems.length > 0">
+    <li>
+    <a ng-href="{{dcRecItems.url}}">
+    {{dcRecItems.title}}
+    </a>
+    </li>
+    </ul>
+    
+    <div ng-show="dcitemsvm.discoveryHeaderListItems.length <= 0">
+        No items found.
+    </div>

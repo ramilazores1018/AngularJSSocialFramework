@@ -1,0 +1,39 @@
+.filter-directive{
+    position: relative;
+    float:left;
+}
+.filter-panel{
+    margin:0;
+    padding:0;
+    /* top:-25px; */
+    position: relative;
+}
+
+.filter-body{
+    float:right!important;
+
+}
+
+.filter-heading{
+    height:auto!important;
+    padding: 6px!important;
+}
+
+/* .filter-pills{
+
+} */
+
+.filter-link{
+    /*border-radius: 16px!important;*/
+    color:#0099cc!important;
+    background-color:#eee!important;
+    padding: 5px 10px!important;
+}
+.filter-badge{
+    font-size: 10px;
+}
+
+.filter-link:hover, .filter-link:hover{
+    color:white!important;
+    background-color: #0099cc!important;
+}

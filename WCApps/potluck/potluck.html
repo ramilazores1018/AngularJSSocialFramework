@@ -1,0 +1,41 @@
+<style>
+    .inputstyle {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+</style>
+
+<div>
+    <h1>Tampa Potluck Sign Up</h1>
+
+    <div class="col-xs-6">
+
+        <div>
+            <h2>{{currentUser}}</h2>
+        </div>
+
+        <div class="input-group inputstyle">
+            <input id="item" ng-model="Item" type="text" class="form-control" placeholder="Item you're bringing"
+                aria-describedby="sizing-addon2">
+        </div>
+
+
+        <div>
+            <button type="button" class="btn btn-default" ng-click="saveinput()">Submit</button>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- Grid View -->
+<div class="col-xs-6" style="text-align: center;">
+<h2>Things people are bringing</h2>
+<div ng-repeat="i in items">
+    <h5 style="font-weight: bolder;">{{i.Item}}</h5>
+
+</div>
+
+</div>

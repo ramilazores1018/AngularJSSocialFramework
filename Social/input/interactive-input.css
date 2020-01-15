@@ -1,0 +1,435 @@
+.wc-pi-wrapper {
+  margin-bottom: 25px;
+  padding: 0;
+}
+
+.wc-pi-charmBar {
+  padding: 10px;
+  padding-bottom: 0;
+}
+
+.wc-pi-charmBar {
+  padding: 0px;
+  padding-bottom: 0;
+}
+
+.wc-pi-charm {
+  border-right: 1px solid #e6e6e6;
+  border-left: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+  border-top-right-radius: 15%;
+  border-top-left-radius: 15%;
+  background: gray;
+  color: white;
+  padding: 8px 15px;
+  padding-bottom: 6px;
+}
+
+.wc-pi-charm-active {
+  background: #09c;
+  color: white;
+}
+
+.wc-pi-placeholder-ctn {
+  float: left;
+  background: #e6e6e6;
+  padding-left: 5px;
+  padding-top: 5px;
+  min-height: 41px;
+  width: 100%;
+  padding-right: 5px;
+}
+
+.wc-pi-form-ctn {
+  position: relative;
+  float: left;
+  background: #e6e6e6;
+  min-height: 41px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 50px;
+
+}
+
+.wc-pi-form-placeholder {
+  margin-top: 20px;
+}
+
+.wc-pi-charmBar-alt {
+  position: absolute;
+  top: -20px;
+  left: 0px;
+}
+
+.wc-pi-placeholder-input {
+  display: block;
+  border: 1px solid #f8f8f8;
+  background: white;
+  height: 32px;
+  width: 100%;
+
+}
+
+.wc-pi-placeholder-img {
+  float: left;
+  height: 29px;
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
+.wc-pi-placeholder-btn {
+  vertical-align: unset !important;
+  display: inline-block;
+  margin-bottom: 4px;
+  background: #09c;
+  cursor: pointer;
+  font-size: 12px;
+  color: white;
+}
+
+.wc-pi-noChrome-btn {
+  border: none;
+}
+
+.wc-pi-savebar {
+  margin: 10px 0;
+  margin-top: 15px;
+  padding-right: 0px;
+}
+
+.wc-pi-savebar a {
+  margin: 3px;
+}
+
+/* TINYMCE TOOLBAR FIX */
+
+button {
+  min-width: 0 !important;
+}
+
+.ms-ctn input {
+  color: rgb(146, 146, 146) !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+
+}
+
+.sel-template {
+  font-size: 12px;
+  padding: 0 2px;
+  height: 7px;
+}
+
+.sel-catIcon {
+  margin-right: 5px;
+
+}
+
+.sel-close-btn {
+  margin-left: 5px;
+
+}
+
+.sel-close-btn:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.closed-advanced {
+  left: 19px;
+}
+
+.closed-advanced:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.checkGroup label {
+  margin-bottom: 0;
+}
+
+.input-publishDate-btn.input-group-btn {
+
+  padding-top: 23px;
+}
+
+.advancedOptions-title {
+  color: #09c;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.name {
+  font-size: 10px !important;
+  color: #09c !important;
+}
+
+.alert-danger {
+  font-size: 12px !important;
+}
+
+.uploadImagesContainer {
+  position: relative;
+  padding: 0 10px !important;
+  color: white !important;
+  line-height: 35px !important;
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
+  text-transform: uppercase !important;
+
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+
+.uploadPanelHeader {
+  background-color: #5a5a5a !important;
+  padding: 0 0px !important;
+  color: white !important;
+  line-height: 35px !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  height: 35px !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+
+/* SPINNER CSS */
+
+.wc-creating {
+  background: #e6e6e6;
+  text-align: center;
+  height: 90px;
+  margin-bottom: 16px;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 35px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 22px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #09c;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
+button {
+  min-width: 0 !important;
+}
+
+.checkboxFive {
+  width: 25px;
+  position: relative;
+}
+
+.checkboxFive label {
+  cursor: pointer;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  background: #eee;
+  border: 1px solid #ddd;
+}
+
+.checkboxFive label:after {
+  opacity: 0.2;
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 5px;
+  background: transparent;
+  top: 6px;
+  left: 7px;
+  border: 3px solid #09c;
+  border-top: none;
+  border-right: none;
+
+  transform: rotate(-45deg);
+}
+
+.checkboxFive label:hover::after {
+  opacity: 0.5;
+}
+
+/**
+   * Create the checkbox state for the tick
+   */
+
+.checkboxFive input[type=checkbox]:checked+label:after {
+  opacity: 1;
+}
+
+.thName {
+  font-size: 12px !important;
+  color: #5a5a5a !important;
+}
+
+.requiredField {
+
+  border-radius: 3px !important;
+  border-bottom: 5px solid red !important;
+  border-image: none !important;
+
+}
+
+.titleText {
+  font-size: 18px !important;
+}
+
+i.mce-i-folder-o:before {
+  content: "\f114";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  color: #000;
+  font-size: 1em;
+  padding-right: 0.5em;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+.ms-custom-class,
+.ms-custom-class input,
+.ms-ctn .ms-sel-ctn input {
+  width: auto !important;
+}
+
+.ms-ctn>.ms-sel-ctn>.ms-inv[disabled="disabled"] {
+  width: 100% !important;
+}
+
+.ms-sel-item+input[disabled='disabled']{
+  width:0px;
+  height:0px;
+}
+
+/****** Adjust Flatpicker width to 17%.  *****************
+* This corrects an issue with the Published Date Flatpicker
+**************************************************/
+.flatpickr-calendar {
+  width: 17%;
+  z-index: -999999;
+}
+
+/*********** FORM VALIDATION ******************/
+.alert li{
+  list-style: none;
+}
+
+/*********** TINYMCE ********************/
+.input-digest{
+  min-height: 150px;
+}
+
+#input-digest_ifr{
+  /*height:450px!important; */
+  min-height:150px;
+  max-height:500px;
+}
+
+::-webkit-scrollbar {
+  all:unset; /* Does not work in IE ****/
+}
+
+/*Scroll bar nav*/
+::-webkit-scrollbar {
+  width: auto;
+  width: 12px;
+	background-color: #F5F5F5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: auto; 
+  -webkit-border-radius: auto;
+  border-radius: auto;
+  background:auto;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius:auto;
+  border-radius:auto;
+  background:auto; 
+  -webkit-box-shadow:auto; 
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: auto; 
+}
+
+
+/******* **************/
+.noCategories input{
+  width:100%!important;
+  background-color: unset!important;
+}
